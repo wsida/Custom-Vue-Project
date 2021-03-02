@@ -3,6 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './plugins/router'
 import './plugins/axios'
+import './api'
 
 // mock 接口数据模拟
 import './mock'

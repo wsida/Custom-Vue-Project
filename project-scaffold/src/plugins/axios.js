@@ -12,3 +12,5 @@ axios.interceptors.response.use(responseSuccess, responseError)
 Vue.prototype.$get = axios.get
 Vue.prototype.$post = axios.post
 Vue.prototype.$axios = axios
+
+export default axios

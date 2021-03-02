@@ -40,3 +40,10 @@
    **解决：1)添加前缀变量加到拦截url `/${ctx}/*`；2）使用正则表达式。实际上就是修改所有拦截url** 
 ### router 配置跳坑
 1. base：默认值为 `/`，该配置取决于项目部署的服务器资源目录，如果部署在 `/app/` 目录下，则需要配置 `base: '/app/'`，这样路由跳转就会正确带上 `/app/`。
+
+### 模块引入
+#### import/export
+#### module.exports/require
+
+#### require.context(directory, useSubdirectories = false, regExp = /^.//);
+> 参数： 1. 读取文件的路径 2. 是否遍历文件的子目录 3. 匹配文件的正则表达式
