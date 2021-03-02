@@ -1,7 +1,7 @@
 // app 模块相关接口
 export default {
   getUserInfo: {
-    url: '/api/user/get',
+    url: '/user/info',
     method: 'get',
     description: '获取用户信息',
     data: {
@@ -9,14 +9,12 @@ export default {
     }
   },
   updateUserInfo: {
-    url: '/api/user/:id',
-    method: 'get',
-    description: '更新用户信息',
+    url: '/user/login',
+    method: 'post',
+    description: '登录',
     data: {
-      id: '',
-      name: '',
-      phone: '',
-      email: ''
+      username: '',
+      password: ''
     }
   }
 }
