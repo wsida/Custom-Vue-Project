@@ -1,0 +1,76 @@
+// 公共混合函数
+@import './index.less';
+// flex 布局混合
+.@{__prefix}-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  // align
+  .@{__when}align-top {
+    align-items: flex-start;
+  }
+
+  .@{__when}align-middle {
+    align-items: center;
+  }
+
+  .@{__when}align-bottom {
+    align-items: flex-end;
+  }
+
+  .@{__when}align-stretch {
+    align-items: stretch;
+  }
+
+  .@{__when}align-baseline {
+    align-items: baseline;
+  }
+  // justify
+  .@{__when}justify-start {
+    justify-content: flex-start;
+  }
+
+  .@{__when}justify-center {
+    justify-content: center;
+  }
+
+  .@{__when}justify-end {
+    justify-content: flex-end;
+  }
+
+  .@{__when}justify-around {
+    justify-content: space-around;
+  }
+
+  .@{__when}justify-between {
+    justify-content: space-between;
+  }
+  // direction
+  .@{__when}direction-row {
+    flex-direction: row;
+  }
+
+  .@{__when}direction-column {
+    flex-direction: column;
+  }
+
+  .@{__when}direction-rrow {
+    flex-direction: row-reverse;
+  }
+
+  .@{__when}direction-rcolumn {
+    flex-direction: column-reverse
+  }
+
+  // flex-box
+  .set-shrink(@shrink) {
+    flex-shrink: @shrink;
+  }
+  .set-basis(@basis) {
+    flex-basis: @basis;
+  }
+  .set-grow(@grow) {
+    flex-grow: @grow;
+  }
+}
