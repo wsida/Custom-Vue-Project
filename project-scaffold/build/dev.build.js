@@ -1,8 +1,10 @@
 /**
  * 本地环境 Webpack 配置
  */
+const basicConfig = require('./basic.build')
+
 module.exports = {
-  publicPath: '/',
+  ...basicConfig,
   // publicPath: '/dev',
   // 代理
   devServer: {
