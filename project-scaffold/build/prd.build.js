@@ -5,7 +5,8 @@ const basicConfig = require('./basic.build')
 
 module.exports = {
   ...basicConfig,
-  assetsDir: 'assets'
+  assetsDir: 'assets',
+  filenameHashing: true,
   // 代理
   // devServer: {
   //   port: 9000,

@@ -6,12 +6,14 @@
     "start": "npm run serve",
     "serve": "vue-cli-service serve --mode dev",
     "build": "vue-cli-service build --mode prd",
+    "build:test": "vue-cli-service build --mode test",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "ant-design-vue": "^1.7.2",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "crypto-js": "^4.0.0",
     "nprogress": "^0.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

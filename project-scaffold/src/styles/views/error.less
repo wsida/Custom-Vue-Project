@@ -1,0 +1,39 @@
+@import '../common/variable.less';
+
+.wsd-button--blue {
+  color: #fff;
+  background-color: @--color-blue;
+  border-color: @--color-blue;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: lighten(@--color-blue, 10%);
+    border-color: lighten(@--color-blue, 10%);
+  }
+
+  &:active {
+    color: #fff;
+    background-color: darken(@--color-blue, 10%);
+    border-color: darken(@--color-blue, 10%);
+  }
+}
+
+.wsd-button--red {
+  color: #fff;
+  background-color: @--color-error;
+  border-color: @--color-error;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: lighten(@--color-error, 10%);
+    border-color: lighten(@--color-error, 10%);
+  }
+
+  &:active {
+    color: #fff;
+    background-color: darken(@--color-error, 10%);
+    border-color: darken(@--color-error, 10%);
+  }
+}

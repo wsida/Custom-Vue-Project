@@ -1,3 +1,4 @@
+import CryptoJS from 'crypto-js'
 const responseBody = {
   message: '',
   timestamp: 0,
@@ -5,8 +6,14 @@ const responseBody = {
   code: 0
 }
 
+const AES_KEY = 'wsd-aes-key-888'
+
+export const decrypt = (ciphertext) => {
+  return CryptoJS.AES.decrypt(ciphertext, AES_KEY).toString(CryptoJS.enc.Utf8)
+}
+
 export const builder = (data, message, code = 0, headers = {}) => {
-  responseBody.result = data
+  responseBody.data = data
   if (message !== undefined && message !== null) {
     responseBody.message = message
   }

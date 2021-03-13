@@ -1,0 +1,71 @@
+@import '../common/variable.less';
+
+@--width-max-login-form: 340px;
+@--width-min-login-form: 220px;
+@--margin-register-form-steps: 32px;
+
+// 登录
+.wsd-login-form {
+  position: relative;
+  max-width: @--width-max-login-form;
+  width: 100%;
+  min-width: @--width-min-login-form;
+  margin-top: calc(50vh - 280px);
+  @media screen and (max-height: 560px) {
+    margin-top: 0;
+  }
+  .wsd-login-form__title {
+    font-size: @--font-size-login-title;
+    margin-bottom: @--margin-login-title;
+    color: @primary-color;
+    .is-strong {
+      font-size: @--font-size-login-title-strong;
+      text-shadow: 1px -1px darken(@primary-color, 10%);
+    }
+  }
+
+  .wsd-login-form__link {
+    line-height: unset;
+    height: unset;
+    padding: 0;
+  }
+}
+
+// 注册
+.wsd-register-form {
+  .wsd-login-form();
+  max-width: unset;
+
+  .ant-form {
+    max-width: @--width-max-login-form;
+  }
+
+  .wsd-register-form__title {
+    .wsd-login-form__title();
+  }
+
+  .wsd-register-form__link {
+    .wsd-login-form__link();
+  }
+
+  .wsd-register-form__steps {
+    margin-bottom: @--margin-register-form-steps;
+  }
+}
+
+// 忘记密码
+.wsd-forget-password-form {
+  .wsd-register-form();
+
+  .wsd-forget-password-form__title {
+    .wsd-register-form__title();
+  }
+
+  .wsd-forget-password-form__link {
+    .wsd-register-form__link();
+  }
+
+  .wsd-forget-password-form__steps {
+    .wsd-register-form__steps();
+  }
+}

@@ -1,18 +1,37 @@
 // 样式常量
 // 组件定制主题
-@primary-color: #1890ff; // 全局主色
+@primary-color: #a26ef4; // 全局主色
+@success-color: #92ce22; // 全局主色
+@warning-color: #ff8823; // 全局主色
+@error-color: #ee5e37; // 全局主色
 
-// 颜色
-@--color-primary: '#419A18';
-@--color-warning: '';
-@--color-grey: '#D9D9D9';
+// -- 颜色 -- //
+// 通用
+@--color-body-background: #f8f8f9;
+@--color-primary: @primary-color;
+@--color-warning: @warning-color;
+@--color-success: @success-color;
+@--color-error: @error-color;
+@--color-blue: #2a8ff7;
+@--color-gold: #f4e522;
+@--color-grey: #d9d9d9;
 
-// 字体
-@--font-size-default: '14px';
-@--font-size-title: '18px';
-@--font-size-subtitle: '16px';
+// -- 字体 -- //
+// 通用
+@--font-size-default: 14px;
+@--font-size-title: 18px;
+@--font-size-subtitle: 16px;
+// 登录/注册
+@--font-size-login-title: 24px;
+@--font-size-login-title-strong: 32px;
 
-// 边框
-@--border-radius: '4px';
+// -- 边框 -- //
+// 通用
+@--border-radius: 4px;
 @--border-color: @--color-grey;
-@--border-width: '1px';
+@--border-width: 1px;
+
+// -- 间距 -- //
+// 通用
+// 登录/注册
+@--margin-login-title: 32px;

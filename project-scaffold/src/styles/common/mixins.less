@@ -1,65 +1,64 @@
 // 公共混合函数
-@import './index.less';
 // flex 布局混合
-.@{__prefix}-flex {
+.wsd-flex {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   // align
-  .@{__when}align-top {
+  .is-align-top {
     align-items: flex-start;
   }
 
-  .@{__when}align-middle {
+  .is-align-middle {
     align-items: center;
   }
 
-  .@{__when}align-bottom {
+  .is-align-bottom {
     align-items: flex-end;
   }
 
-  .@{__when}align-stretch {
+  .is-align-stretch {
     align-items: stretch;
   }
 
-  .@{__when}align-baseline {
+  .is-align-baseline {
     align-items: baseline;
   }
   // justify
-  .@{__when}justify-start {
+  .is-justify-start {
     justify-content: flex-start;
   }
 
-  .@{__when}justify-center {
+  .is-justify-center {
     justify-content: center;
   }
 
-  .@{__when}justify-end {
+  .is-justify-end {
     justify-content: flex-end;
   }
 
-  .@{__when}justify-around {
+  .is-justify-around {
     justify-content: space-around;
   }
 
-  .@{__when}justify-between {
+  .is-justify-between {
     justify-content: space-between;
   }
   // direction
-  .@{__when}direction-row {
+  .is-direction-row {
     flex-direction: row;
   }
 
-  .@{__when}direction-column {
+  .is-direction-column {
     flex-direction: column;
   }
 
-  .@{__when}direction-rrow {
+  .is-direction-rrow {
     flex-direction: row-reverse;
   }
 
-  .@{__when}direction-rcolumn {
+  .is-direction-rcolumn {
     flex-direction: column-reverse
   }
 

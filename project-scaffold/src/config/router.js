@@ -16,7 +16,6 @@ export function beforeEach (to, from, next) {
   next()
 }
 
-export function afterEach (to, from, next) {
+export function afterEach (to, from) {
   NProgress.done()
-  next()
 }

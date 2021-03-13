@@ -1,6 +1,7 @@
 /**
  * axios 拦截器配置
  */
+import Vue from 'vue'
 // 基础配置
 export const BASE_CONFIG = {
   // baseURL: process.enc.VUE_APP_BASE_API_URL,
@@ -24,11 +25,20 @@ export function requestError (error) {
 // 响应成功-拦截器
 export function responseSuccess (response) {
   // TODO 统一成功信息提示、数据拆解
-  return response
+  return response.status === 200 ? response.data : response
 }
 
 // 响应失败-拦截器
 export function responseError (error) {
   // TODO 统一错误提示
+  console.log(error)
+  const message = error && error.data && error.data.message ? error.data.message : ''
+  const status = error.status ? error.status.toString() : ''
+  if (status.startsWith('50')) {
+    Vue.prototype.$message.error(message || 'Server Error!')
+  }
+  if (status.startsWith('40')) {
+    Vue.prototype.$message.error(message || 'Client Error!')
+  }
   return Promise.reject(error)
 }

@@ -1,0 +1,47 @@
+@import '../common/mixins.less';
+
+.wsd-user-layout {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  .wsd-flex();
+  .is-align-stretch();
+
+  &__bg {
+    position: relative;
+  }
+
+  &__content {
+    position: relative;
+    min-width: 320px;
+    width: 40vw;
+    max-width: 680px;
+    flex-shrink: 0;
+    padding: 24px 36px;
+
+    @media screen and (max-width: 1002px) {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+
+  .ant-layout-content {
+    height: 100%;
+  }
+}
+
+.wsd-login__bg,
+.wsd-register__bg {
+  position: relative;
+  height: 100%;
+  .wsd-flex();
+  .is-align-middle();
+  .is-justify-center();
+  padding: 24px 36px;
+  background: #fff;
+  img {
+    max-width: 40vw;
+    min-width: 420px;
+    max-height: 80vh;
+  }
+}

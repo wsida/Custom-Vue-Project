@@ -1,18 +1,11 @@
-@import './base.less';
 @import '~nprogress/nprogress.css'; // Progress 进度条样式
+@import './base.less';
 
-html, body {
-  height: 100vh;
-  * {
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-  }
-}
+// 布局样式
+@import './layouts/user.less';
 
-a {
-  text-decoration: none;
-}
+// 组件样式
 
-li {
-  list-style-type: none;
-}
+// 模块页面样式
+@import './views/error.less';
+@import './views/user.less';

@@ -1,3 +1,4 @@
+<!-- 登录/注册布局 -->
 <template>
   <a-layout class="wsd-user-layout">
     <a-layout class="wsd-user-layout__bg">
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-  export default {
-    name: 'UserLayout'
-  }
+export default {
+  name: 'UserLayout'
+}
 </script>

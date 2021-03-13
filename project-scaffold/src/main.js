@@ -3,7 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './plugins/router'
 import Antd from 'ant-design-vue'
-import '@/styles/index.less'
+import './styles/index.less'
 import './plugins/axios'
 import './api'
 

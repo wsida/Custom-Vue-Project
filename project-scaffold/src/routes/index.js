@@ -3,17 +3,17 @@ const routes = [
   {
     path: '/403',
     name: '403',
-    component: () => import('@/views/error/400')
+    component: () => import('@/views/error/403')
   },
   {
     path: '/404',
     name: '404',
-    component: () => import('@/views/error/400')
+    component: () => import('@/views/error/404')
   },
   {
     path: '/500',
     name: '500',
-    component: () => import('@/views/error/400')
+    component: () => import('@/views/error/500')
   },
   {
     path: '/user',
@@ -24,16 +24,24 @@ const routes = [
         path: '/user/login',
         name: 'login',
         components: {
-          default: () => import('@/views/error/400'),
+          default: () => import('@/views/user/Login'),
           bg: () => import('@/layouts/LoginBackground')
         }
       },
       {
-        path: '/register',
+        path: '/user/register',
         name: 'register',
         components: {
-          default: () => import('@/views/error/400'),
+          default: () => import('@/views/user/Register'),
           bg: () => import('@/layouts/RegisterBackground')
+        }
+      },
+      {
+        path: '/user/forget-password',
+        name: 'forget-password',
+        components: {
+          default: () => import('@/views/user/ForgetPassword'),
+          bg: () => import('@/layouts/ForgetPasswordBackground')
         }
       }
     ]

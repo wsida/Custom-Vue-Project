@@ -1,11 +1,11 @@
 <template>
-  <div>
-    注册页面背景图
+  <div class="wsd-register__bg">
+    <img src="~@/assets/images/bg-register.png" alt="background-register" />
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'RegisterBackground'
-  }
+export default {
+  name: 'RegisterBackground'
+}
 </script>

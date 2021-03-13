@@ -9,12 +9,14 @@
   - assets（项目资源目录）
   - components（项目组件目录）
   - config（全局配置目录）
+  - directives（自定义指令目录）
   - layouts（页面布局文件目录）
   - mock（mock目录-本地环境开启）
   - plugins（插件目录）
   - router（路由树目录）
   - store（store目录）
   - styles（全局样式目录）
+  - utils（工具方法目录）
   - views （项目页面目录）
   - App.vue （项目App）- 提供单页面路由视图 router-view
   - main.js（构建入口 - 加载插件、插件全局配置）
@@ -68,4 +70,5 @@
   - mixins 文件 -混合类
   - variable 文件 -定义公共变量
 - components 目录（定义组件样式）
+- layouts 目录（定义布局组件样式）
 - views 目录（定义模块页面样式）
