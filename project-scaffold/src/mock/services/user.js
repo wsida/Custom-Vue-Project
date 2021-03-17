@@ -1,10 +1,10 @@
 // import Mock from 'mockjs'
 import Mock from 'mockjs2'
-import { builder, getBody, decrypt } from '../utils'
+import { builder, getBody, decrypt, encrypt } from '../utils'
 
 // 请求错误 code [xxyyz] xx-功能模块  yy-方法 z-错误类型
 // 变量
-let accounts = [
+const accounts = [
   {
     username: 'admin',
     password: '888888',
@@ -18,11 +18,31 @@ let accounts = [
 ]
 const _captcha = {}
 let _captchaInterval = null
+const MENUS_PERMIT = ['wsd:home', 'wsd:dashboard']
 
 const _getUserInfo = function (options) {
+  const body = getBody(options)
   // options url, type, body
-  console.log(options)
-  return builder({ title: 'mock' }, 'Success', 200)
+  const user = accounts.find(account => account.token === body.token) || accounts[0]
+  if (user) {
+    const userInfo = Mock.mock({
+      data: {
+        username: user.username,
+        telphone: user.telphone,
+        avatar: '@image',
+        birthday: '@date',
+        city: 'FuJian',
+        region: 'China',
+        email: '@email',
+        position: 'Web Front-end Engineer',
+        shortDescription: 'a web front-end engineer',
+        funcs: [],
+        menus: MENUS_PERMIT
+      }
+    }).data
+    return builder({ code: '0', data: userInfo }, 'Success', 200)
+  }
+  return builder({ code: '10060', data: {} }, 'Error', 200)
 }
 
 // 获取验证码
@@ -70,12 +90,17 @@ const _validateCaptcha = function (options) {
 const _loginByAccount = function (options) {
   const body = getBody(options)
   // TODO 解码获取密码
-  const _password = decrypt(body.password)
-  const user = accounts.find(account => (account.username === body.username && account.password === _password))
+  const _password = decrypt(body.password || '')
+  const user = accounts.find(account => (account.username === body.username))
   if (user) {
-    return builder({ code: '0', data: {} }, 'Success', 200)
+    if (user.password === _password) {
+      user.token = encrypt(user.username + user.telphone)
+      return builder({ code: '0', data: user.token }, 'Success', 200)
+    } else {
+      return builder({ code: '10010' }, 'Wrong account or password!', 200)
+    }
   }
-  return builder({ code: '10010' }, 'Wrong account or password!', 200)
+  return builder({ code: '10011' }, 'Account not exist!', 200)
 }
 
 // 登录-手机号码
@@ -84,9 +109,14 @@ const _loginByTelphone = function (options) {
   if (!_captcha[body.telphone]) {
     return builder({ code: '10021' }, 'The captcha is invalid!', 200)
   }
-  const user = accounts.find(account => account.telphone === body.telphone && _captcha[body.telphone].toString() === body.captcha)
-  if (user) {
-    return builder({ code: '0', data: {} }, 'Success', 200)
+  const user = accounts.find(account => account.telphone === body.telphone)
+  if (_captcha[body.telphone].toString() === body.captcha) {
+    if (user) {
+      user.token = encrypt(user.username + user.telphone)
+      return builder({ code: '0', data: user.token }, 'Success', 200)
+    } else {
+      return builder({ code: '10022' }, 'Telphone not register!', 200)
+    }
   }
   return builder({ code: '10020' }, 'Wrong captcha!', 200)
 }
@@ -95,10 +125,10 @@ const _loginByTelphone = function (options) {
 const _register = function (options) {
   const body = getBody(options)
   if (accounts.find(account => account.username === body.username)) {
-    return builder({ code: '10040', data: { title: 'The username already exists!' } }, 'Error', 200)
+    return builder({ code: '10040', data: { title: 'The username already exists!', subTitle: 'You can change your username and try again.' } }, 'Error', 200)
   }
   if (accounts.find(account => account.telphone === body.telphone)) {
-    return builder({ code: '10041', data: { title: 'The telphone already register!' } }, 'Error', 200)
+    return builder({ code: '10041', data: { title: 'The telphone already register!', subTitle: 'You need to register the account by using another telphone.' } }, 'Error', 200)
   }
   // TODO 解码获取密码
   const _password = decrypt(body.password)
@@ -115,17 +145,21 @@ const _modifyPassword = function (options) {
   const body = getBody(options)
   // TODO 解码获取密码
   const _password = decrypt(body.password)
-  accounts = accounts.map(account => {
+  let isExist = false
+  accounts.forEach(account => {
     if (account.telphone === body.telphone) {
+      isExist = true
       account.password = _password
     }
-    return account
   })
+  if (!isExist) {
+    return builder({ code: '10051', data: { title: 'Account not exist!', subTitle: 'You need to confirm the account with this bounded telphone.' } }, 'Error', 200)
+  }
   return builder({ code: '0' }, 'Success', 200)
 }
 
 export default {
-  'get /user/info': _getUserInfo,
+  'post /user/get': _getUserInfo,
   'post /user/captcha/get': _getCaptcha,
   'post /user/captcha/validate': _validateCaptcha,
   'post /user/login/account': _loginByAccount,

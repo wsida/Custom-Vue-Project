@@ -51,7 +51,8 @@ export default {
     description: '忘记密码修改',
     data: {
       telphone: '',
-      password: ''
+      password: '',
+      oldPassword: ''
     }
   }
 }

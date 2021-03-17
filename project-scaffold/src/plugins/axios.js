@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// axios 自定义
 import Axios from 'axios'
 import { BASE_CONFIG, requestSuccess, requestError, responseSuccess, responseError } from '@/config/axios'
 
@@ -8,9 +8,5 @@ const axios = Axios.create({
 
 axios.interceptors.request.use(requestSuccess, requestError)
 axios.interceptors.response.use(responseSuccess, responseError)
-
-Vue.prototype.$get = axios.get
-Vue.prototype.$post = axios.post
-Vue.prototype.$axios = axios
 
 export default axios

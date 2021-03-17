@@ -14,7 +14,18 @@
 @--color-error: @error-color;
 @--color-blue: #2a8ff7;
 @--color-gold: #f4e522;
-@--color-grey: #d9d9d9;
+@--color-grey: #bfbfbf;
+
+@--color-border: #d9d9d9;
+@--color-title: rgba(0, 0, 0, .85);
+@--color-subtitle: rgba(0, 0, 0, .75);
+@--color-text: rgba(0, 0, 0, .65);
+@--color-auxiliary-text: rgba(0, 0, 0, .5);
+@--color-disabled-text: rgba(0, 0, 0, .25);
+
+// 布局
+@--color-layout-header-shadow: darken(@--color-body-background, 15%);
+@--color-layout-header-hover: darken(@--color-body-background, 5%);
 
 // -- 字体 -- //
 // 通用
@@ -24,11 +35,13 @@
 // 登录/注册
 @--font-size-login-title: 24px;
 @--font-size-login-title-strong: 32px;
+// 全局头部
+@--font-size-header-title: 30px;
 
 // -- 边框 -- //
 // 通用
 @--border-radius: 4px;
-@--border-color: @--color-grey;
+@--border-color: @--color-border;
 @--border-width: 1px;
 
 // -- 间距 -- //

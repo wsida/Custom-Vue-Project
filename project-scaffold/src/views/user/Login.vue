@@ -138,6 +138,11 @@
 
 <script>
 import { encrypt } from '@/utils/aes'
+import VueCookie from 'vue-cookie'
+import {
+  USER_TOKEN
+} from '@/config/cookies'
+
 export default {
   name: 'Login',
   data () {
@@ -208,15 +213,24 @@ export default {
           this.submitLoading = true
           if (this.mode === 'account') {
             // TODO账号密码加密 mode=account
-            formData.password = encrypt(formData.password).toString()
+            formData.password = encrypt(value.password)
             this.$api['user/loginByAccount'](formData).then(res => {
               console.log(res)
-              if (res.data && res.data.code === '0') {
+              if (res.data.code === '0') {
                 // TODO 登录跳转
+                VueCookie.set(USER_TOKEN, res.data.data)
                 this.goHome()
-              } else if (res.data && res.data.code === '10010') {
+              } else if (res.data.code === '10010') {
                 this.form && this.form.setFields({
                   password: {
+                    value: value.password,
+                    errors: [new Error(res.message)]
+                  }
+                })
+              } else if (res.data.code === '10011') {
+                this.form && this.form.setFields({
+                  username: {
+                    value: value.username,
                     errors: [new Error(res.message)]
                   }
                 })
@@ -230,12 +244,21 @@ export default {
             // TODO提交表单 mode=telphone 需要传送前缀
             this.$api['user/loginByTelphone'](formData).then(res => {
               console.log(res)
-              if (res.data && res.data.code === '0') {
+              if (res.data.code === '0') {
                 // TODO 登录跳转
+                VueCookie.set(USER_TOKEN, res.data.data)
                 this.goHome()
-              } else if (res.data && (res.data.code === '10021' || res.data.code === '10020')) {
+              } else if ((res.data.code === '10022')) {
                 this.form && this.form.setFields({
-                  password: {
+                  telphone: {
+                    value: formData.telphone,
+                    errors: [new Error(res.message)]
+                  }
+                })
+              } else if ((res.data.code === '10021' || res.data.code === '10020')) {
+                this.form && this.form.setFields({
+                  captcha: {
+                    value: formData.captcha,
                     errors: [new Error(res.message)]
                   }
                 })
@@ -269,7 +292,7 @@ export default {
           // TODO 发起获取验证码
           this.$api['user/getCaptcha'](value).then(res => {
             console.log(res)
-            if (res.data && res.data.code === '0') {
+            if (res.data.code === '0') {
               // TODO 请求成功倒计时
               this.captchaTimeout = 59
               this.captchaInterval = setInterval(() => {
@@ -304,7 +327,7 @@ export default {
 
     // 跳转首页
     goHome () {
-      this.$router.push({ name: 'home' })
+      this.$router.push('/')
     }
   }
 }

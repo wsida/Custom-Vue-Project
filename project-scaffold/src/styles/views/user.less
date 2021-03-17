@@ -20,7 +20,7 @@
     color: @primary-color;
     .is-strong {
       font-size: @--font-size-login-title-strong;
-      text-shadow: 1px -1px darken(@primary-color, 10%);
+      text-shadow: 1px -1px 1px darken(@primary-color, 10%);
     }
   }
 
@@ -35,6 +35,12 @@
 .wsd-register-form {
   .wsd-login-form();
   max-width: unset;
+
+  &.is-block {
+    .ant-form {
+      max-width: unset;
+    }
+  }
 
   .ant-form {
     max-width: @--width-max-login-form;

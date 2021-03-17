@@ -8,7 +8,7 @@ module.exports = {
   // publicPath: '/dev',
   // 代理
   devServer: {
-    port: 9000,
+    port: 9088,
     host: 'localhost',
     https: false,
     open: true, // 运行自动开启

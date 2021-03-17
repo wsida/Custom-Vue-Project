@@ -28,6 +28,8 @@
 - index 文件 -解析 `modules` 目录，获取相关模块接口配置，然后封装成 `$api` 全局方法。
 - modules 目录（存放模块接口配置文件，必须是 `*.js` 文件，暴露相应配置对象）
 
+**使用 `require.context()` 方法一次性引入目录文件模块**
+
 ### 接口配置
 
 - key: 作为接口配置的键值，同时也是 $api 调用方法的键值。
@@ -52,6 +54,25 @@
 - index 文件 -mock启用文件
 - utils 文件 -定义mock相关工具方法
 - services 目录（定义模块接口）
+
+**使用 `require.context()` 方法一次性引入目录文件模块**
+
+*扩展：*
+`require.context(directory, useSubdirectories, regExp)`
+
+- irectory: 要查找的文件路径
+- useSubdirectories: 是否查找子目录
+- regExp: 要匹配文件的正则
+
+## routes 目录
+
+> 定义项目路由配置。
+
+- index 文件 -最终路由配置对象。
+- staticRoutes 文件 -配置公共路由，不需要用户权限验证
+- asyncRoutes 文件 -根据接口返回权限码返回动态路由配置 或者 需要根据权限（permitCode）动态计算的路由
+
+*备注* 目前登录页由项目提供，需要登录后才能获取路由权限，不建议使用动态路由，而直接根据路由的permitCode 在全局路由守卫拦截。如果在index.html可以获取账号权限（登录页由其他项目管理）则建议使用动态路由。asyncRoutes 文件提供 `getRoutes` 方法返回动态路由配置。
 
 ## store 目录
 

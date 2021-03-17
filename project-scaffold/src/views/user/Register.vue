@@ -1,6 +1,6 @@
 <!-- 登录表单 -->
 <template>
-  <div class="wsd-register-form">
+  <div :class="['wsd-register-form', currentStep === 2 && 'is-block']">
     <div class="wsd-register-form__title">
       <span>WSD - </span>
       <span class="is-strong">Register</span>
@@ -9,7 +9,6 @@
       <!-- 注册流程 -->
       <a-steps
         size="small"
-        type="navigation"
         class="wsd-register-form__steps"
         :current="currentStep"
       >
@@ -163,11 +162,18 @@
                 Go login
               </a-button>
               <a-button
-                v-if="registerResult.status === 'error'"
+                v-if="registerResult.status === 'error' && !firstStep"
                 type="danger"
                 @click="handlePrevStep"
               >
                 Prev step
+              </a-button>
+              <a-button
+                v-if="registerResult.status === 'error' && firstStep"
+                type="danger"
+                @click="handleFirstStep"
+              >
+                Try again
               </a-button>
             </template>
           </a-result>
@@ -178,6 +184,7 @@
 </template>
 
 <script>
+import { encrypt } from '@/utils/aes'
 const DEFAULT_RESULT = {
   success: {
     status: 'success',
@@ -207,6 +214,7 @@ export default {
     return {
       // 登录模式
       currentStep: 0,
+      firstStep: false,
       telphonePrefix: '+86',
       isShowPassword: false,
       // 按钮状态
@@ -286,16 +294,37 @@ export default {
     handleSubmit () {
       this.form && this.form.validateFields(['username', 'password', 'confirmPassword'], (error, value) => {
         if (!error) {
-          // this.submitLoading = true
+          this.submitLoading = true
           // TODO 加密密码
-          // const formData = {
-          //   ...this.formData,
-          //   username: value.username,
-          //   password: value.password // 加密密码， 确认密码不需要传
-          // }
+          const formData = {
+            telphone: this.formData.telphone,
+            username: value.username,
+            password: encrypt(value.password) // 加密密码， 确认密码不需要传
+          }
           // TODO调用接口返回注册结果
-          this.registerResult = DEFAULT_RESULT.success
-          this.currentStep += 1
+          this.$api['user/registerAccount'](formData).then(res => {
+            if (res.data.code === '0') {
+              this.registerResult = DEFAULT_RESULT.success
+            } else if (res.data.code === '10040' || res.data.code === '10041') {
+              this.registerResult = {
+                ...DEFAULT_RESULT.error,
+                ...res.data.data || {}
+              }
+            } else {
+              this.registerResult = {
+                ...DEFAULT_RESULT.error,
+                ...res.data.data || {}
+              }
+            }
+            if (res.data.code === '10041') {
+              this.firstStep = true
+            } else {
+              this.firstStep = false
+            }
+            this.currentStep += 1
+          }).finally(_ => {
+            this.submitLoading = false
+          })
         }
       })
     },
@@ -309,7 +338,7 @@ export default {
           // TODO 发起获取验证码
           this.$api['user/getCaptcha'](value).then(res => {
             console.log(res)
-            if (res.data && res.data.code === '0') {
+            if (res.data.code === '0') {
               // TODO 请求成功倒计时
               this.captchaTimeout = 59
               this.captchaInterval = setInterval(() => {
@@ -339,7 +368,18 @@ export default {
 
     // 返回上一步
     handlePrevStep () {
-      this.currentStep -= 1
+      this.form && this.form.resetFields(['password', 'confirmPassword'])
+      this.$nextTick(() => {
+        this.currentStep -= 1
+      })
+    },
+
+    // 返回第一步
+    handleFirstStep () {
+      this.form && this.form.resetFields()
+      this.$nextTick(() => {
+        this.currentStep = 0
+      })
     }
   }
 }

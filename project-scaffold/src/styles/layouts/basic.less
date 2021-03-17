@@ -1,0 +1,125 @@
+@import '../common/variable.less';
+@import '../common/mixins.less';
+
+// 基本布局
+.wsd-basic-layout {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  .wsd-basic-layout--inner {
+    background: unset;
+  }
+  .wsd-basic-header {
+    position: relative;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 12px;
+    background-color: #fff;
+    box-shadow: -3px 5px 8px @--color-layout-header-shadow;
+    z-index: 1;
+  }
+}
+
+// 全局头部
+.wsd-header {
+  position: relative;
+  height: 100%;
+  .wsd-flex();
+  .is-align-stretch();
+  .is-justify-between();
+
+  .is-middle {
+    vertical-align: middle;
+  }
+  .wsd-header__product {
+    display: inline-block;
+    height: 100%;
+    width: 188px;
+    overflow: hidden;
+    .wsd-flex();
+    .is-align-middle();
+    .wsd-header__title {
+      padding: 0 12px;
+      color: @primary-color;
+      font-size: @--font-size-header-title;
+      font-family: monospace;
+      text-shadow: 1px -1px 1px darken(@primary-color, 10%);
+    }
+  }
+  .wsd-header__click {
+    display: inline-block;
+    padding: 0 12px;
+    height: 100%;
+    cursor: pointer;
+    &:hover {
+      background-color: @--color-layout-header-hover;
+    }
+  }
+  .wsd-header_username {
+    padding-right: 12px;
+  }
+}
+// 未读消息
+.wsd-header-message {
+  position: relative;
+  width: 300px;
+  .ant-list-header {
+    padding-top: 0;
+    .wsd-header-message__header {
+      .wsd-flex();
+      .is-align-middle();
+      .is-justify-between();
+      .wsd-header-message__title {
+        font-size: @--font-size-subtitle;
+      }
+    }
+  }
+  .ant-list-footer {
+    border-top: 1px solid #e8e8e8;
+    padding-bottom: 0;
+    .wsd-header-message__footer {
+      text-align: center;
+    }
+  }
+  .ant-list-item {
+    padding: 6px 0;
+  }
+  .wsd-header-message__item {
+    overflow: hidden;
+    .wsd-header-message__title {
+      color: @--color-text;
+      .wsd-ellipsis();
+    }
+    .wsd-header-message__time {
+      color: @--color-auxiliary-text;
+      font-size: 12px;
+      .wsd-ellipsis();
+    }
+  }
+}
+
+// 全局侧边栏
+.wsd-basic-sider {
+  position: relative;
+  background: #fff;
+  padding: 16px 0 46px;
+}
+
+// 内容容器
+.wsd-basic-content {
+  position: relative;
+  padding: 16px;
+}
+
+// 用户信息drawer
+.wsd-user-drawer {
+  .ant-drawer-content {
+    position: relative;
+    background: @--color-body-background;
+    padding: 0;
+    .ant-drawer-body {
+      position: relative;
+      padding: 0;
+    }
+  }
+}

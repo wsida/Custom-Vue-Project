@@ -1,6 +1,6 @@
 <!-- 登录表单 -->
 <template>
-  <div class="wsd-forget-password-form">
+  <div :class="['wsd-forget-password-form', currentStep === 2 && 'is-block']">
     <div class="wsd-forget-password-form__title">
       <span>WSD - </span>
       <span class="is-strong">Forget password</span>
@@ -9,7 +9,6 @@
       <!-- 注册流程 -->
       <a-steps
         size="small"
-        type="navigation"
         class="wsd-forget-password-form__steps"
         :current="currentStep"
       >
@@ -89,23 +88,10 @@
             </a-row>
           </a-form-item>
           <a-form-item>
-            perhaps <a-button type="link" class="wsd-register-form__link" @click="handleGoLogin">I remember it!</a-button>
+            <a-button type="link" class="wsd-register-form__link" @click="handleGoLogin">I remember it!</a-button>
           </a-form-item>
         </template>
         <template v-else-if="currentStep === 1">
-          <a-form-item>
-            <a-input
-              placeholder="Old password"
-              :type="!isShowOldPassword ? 'password' : 'text'"
-              v-decorator="[
-                'oldPassword',
-                decorators.oldPassword,
-              ]"
-            >
-              <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
-              <a-icon slot="suffix" :type="isShowOldPassword ? 'eye' : 'eye-invisible'" style="color: rgba(0,0,0,.25)" @click="handleSwitchEye('isShowOldPassword')" />
-            </a-input>
-          </a-form-item>
           <a-form-item>
             <a-input
               placeholder="New password"
@@ -148,7 +134,7 @@
             </a-row>
           </a-form-item>
           <a-form-item>
-            perhaps <a-button type="link" class="wsd-register-form__link" @click="handleGoLogin">I remember it!</a-button>
+            <a-button type="link" class="wsd-register-form__link" @click="handleGoLogin">I remember it!</a-button>
           </a-form-item>
         </template>
         <template v-else-if="currentStep === 2">
@@ -164,11 +150,18 @@
                 Go login
               </a-button>
               <a-button
-                v-if="modifyResult.status === 'error'"
+                v-if="modifyResult.status === 'error' && !firstStep"
                 type="danger"
                 @click="handlePrevStep"
               >
                 Prev step
+              </a-button>
+              <a-button
+                v-if="modifyResult.status === 'error' && firstStep"
+                type="danger"
+                @click="handleFirstStep"
+              >
+                Try again
               </a-button>
             </template>
           </a-result>
@@ -179,15 +172,16 @@
 </template>
 
 <script>
+import { encrypt } from '@/utils/aes'
 const DEFAULT_RESULT = {
   success: {
     status: 'success',
-    title: 'Successfully registered!',
-    subTitle: 'You can sign in directly with your account or mobile number.'
+    title: 'Password successfully modified!',
+    subTitle: 'You can sign in directly with your new password.'
   },
   error: {
     status: 'error',
-    title: 'Registered has failed!',
+    title: 'Password modification failed!',
     subTitle: 'You can go back to the previous step to try again.'
   }
 }
@@ -208,6 +202,7 @@ export default {
     return {
       // 登录模式
       currentStep: 0,
+      firstStep: false,
       telphonePrefix: '+86',
       isShowPassword: false,
       isShowOldPassword: false,
@@ -221,13 +216,6 @@ export default {
       },
       // 表单验证
       decorators: {
-        oldPassword: {
-          initialValue: '',
-          rules: [
-            { required: true, message: 'Please input your old password', type: 'string' },
-            { min: 6, max: 24, message: 'Format error' }
-          ]
-        },
         password: {
           initialValue: '',
           rules: [
@@ -275,28 +263,62 @@ export default {
     handleNextStep () {
       this.form && this.form.validateFields(['telphone', 'captcha'], (error, value) => {
         if (!error) {
-          // this.validateLoading = true
-          // TODO 验证成功缓存手机号码
-          this.validatePhone = value.telphone
-          // 登记账号信息
-          this.currentStep += 1
+          this.validateLoading = true
+          this.$api['user/validateCaptcha'](value).then(res => {
+            if (res.data.code === '0') {
+              // TODO 验证成功缓存手机号码
+              this.formData.telphone = value.telphone
+              // 登记账号信息
+              this.currentStep += 1
+            } else if (res.data.code === '10031') {
+              // TODO 验证成功缓存手机号码
+              this.form && this.form.setFields({
+                captcha: {
+                  value: value.captcha,
+                  errors: [new Error(res.message)]
+                }
+              })
+            } else {
+              this.$message.error(res.message || 'Validate error!')
+            }
+          }).finally(_ => {
+            this.validateLoading = false
+          })
         }
       })
     },
 
     // 提交事件
     handleSubmit () {
-      this.form && this.form.validateFields(['oldPassword', 'password', 'confirmPassword'], (error, value) => {
+      this.form && this.form.validateFields(['password', 'confirmPassword'], (error, value) => {
         if (!error) {
-          // this.submitLoading = true
+          this.submitLoading = true
           // TODO 加密密码
-          // const formData = {
-          //   ...this.formData,
-          //   password: value.password // 加密密码， 确认密码不需要传
-          // }
-          // TODO调用接口返回注册结果
-          this.modifyResult = DEFAULT_RESULT.success
-          this.currentStep += 1
+          const formData = {
+            telphone: this.formData.telphone,
+            password: encrypt(value.password) // 加密密码， 确认密码不需要传
+          }
+          this.$api['user/forgetPassword'](formData).then(res => {
+            if (res.data.code === '0') {
+              // TODO调用接口返回注册结果
+              this.modifyResult = DEFAULT_RESULT.success
+              this.currentStep += 1
+            } else {
+              // TODO调用接口返回注册结果
+              this.modifyResult = {
+                ...DEFAULT_RESULT.error,
+                ...res.data.data || {}
+              }
+              this.currentStep += 1
+            }
+            if (res.data.code === '10051') {
+              this.firstStep = true
+            } else {
+              this.firstStep = false
+            }
+          }).finally(_ => {
+            this.submitLoading = false
+          })
         }
       })
     },
@@ -310,7 +332,7 @@ export default {
           // TODO 发起获取验证码
           this.$api['user/getCaptcha'](value).then(res => {
             console.log(res)
-            if (res.data && res.data.code === '0') {
+            if (res.data.code === '0') {
               // TODO 请求成功倒计时
               this.captchaTimeout = 59
               this.captchaInterval = setInterval(() => {
@@ -340,7 +362,18 @@ export default {
 
     // 返回上一步
     handlePrevStep () {
-      this.currentStep -= 1
+      this.form && this.form.resetFields(['password', 'confirmPassword'])
+      this.$nextTick(() => {
+        this.currentStep -= 1
+      })
+    },
+
+    // 返回第一步
+    handleFirstStep () {
+      this.form && this.form.resetFields()
+      this.$nextTick(() => {
+        this.currentStep = 0
+      })
     }
   }
 }

@@ -1,11 +1,17 @@
 import Mock from 'mockjs2'
-import user from './services/user'
 
 if (process.env.NODE_ENV === 'dev') {
   console.log('mock mounting...')
-  const APIS = {
-    ...user
-  }
+  let APIS = {}
+  // 动态解析目录文件
+  const modules = require.context('./services', false, /\.js$/)
+  modules.keys().forEach(m => {
+    const apis = modules(m).default
+    APIS = {
+      ...APIS,
+      ...apis
+    }
+  })
 
   console.log(APIS)
 

@@ -1,5 +1,4 @@
 // TODO 解析services目录文件-获取api接口配置信息-提供全局$api方法调用接口
-import Vue from 'vue'
 import axios from '@/plugins/axios'
 const $api = {}
 
@@ -57,4 +56,5 @@ modules.keys().forEach(m => {
   }
 })
 
-Vue.prototype.$api = $api
+// Vue.prototype.$api = $api
+export default $api
