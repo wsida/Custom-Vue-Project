@@ -4,8 +4,15 @@
       <global-header></global-header>
     </a-layout-header>
     <a-layout class="wsd-basic-layout--inner">
-      <a-layout-sider class="wsd-basic-sider">
-        <global-sider></global-sider>
+      <a-layout-sider
+        class="wsd-basic-sider"
+        :collapsedWidth="48"
+        :collapsed="collapsed"
+        :trigger="null"
+      >
+        <global-sider
+          :collapsed.sync="collapsed"
+        ></global-sider>
       </a-layout-sider>
       <a-layout-content class="wsd-basic-content">
         <transition name="slide">
@@ -24,6 +31,11 @@ export default {
   components: {
     GlobalHeader,
     GlobalSider
+  },
+  data () {
+    return {
+      collapsed: false
+    }
   }
 }
 </script>

@@ -49,7 +49,7 @@ export async function beforeEach (to, from, next) {
         } else {
           // 目前只有加载所有路由 - 利用权限码判断
           // 菜单权限判断
-          if (to.meta && to.meta.permitCode && store.getters.hasPermit(to.meta.permitCode)) {
+          if (to.meta && to.meta.permitCode && store.getters.hasPagePermit(to.meta.permitCode)) {
             next()
           } else {
             next({ name: '403' })
@@ -62,7 +62,7 @@ export async function beforeEach (to, from, next) {
     } else {
       // 目前只有加载所有路由 - 利用权限码判断
       // 菜单权限判断
-      if (to.meta && to.meta.permitCode && store.getters.hasPermit(to.meta.permitCode)) {
+      if (to.meta && to.meta.permitCode && store.getters.hasPagePermit(to.meta.permitCode)) {
         next()
       } else {
         next({ name: '403' })

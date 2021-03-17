@@ -18,7 +18,7 @@
 
 @--color-border: #d9d9d9;
 @--color-title: rgba(0, 0, 0, .85);
-@--color-subtitle: rgba(0, 0, 0, .75);
+@--color-subTitle: rgba(0, 0, 0, .75);
 @--color-text: rgba(0, 0, 0, .65);
 @--color-auxiliary-text: rgba(0, 0, 0, .5);
 @--color-disabled-text: rgba(0, 0, 0, .25);
@@ -26,12 +26,20 @@
 // 布局
 @--color-layout-header-shadow: darken(@--color-body-background, 15%);
 @--color-layout-header-hover: darken(@--color-body-background, 5%);
+// 菜单
+@--color-sider-menu-color: @--color-auxiliary-text;
+@--color-sider-menu-hover-color: @--color-text;
+@--color-sider-menu-active-color: @--color-subTitle;
+@--color-sider-menu-background: transparent;
+@--color-sider-menu-hover-background: @--color-body-background;
+@--color-sider-menu-active-background: darken(@--color-body-background, 5%);
+@--color-sider-menu-active-bar: @primary-color;
 
 // -- 字体 -- //
 // 通用
 @--font-size-default: 14px;
 @--font-size-title: 18px;
-@--font-size-subtitle: 16px;
+@--font-size-subTitle: 16px;
 // 登录/注册
 @--font-size-login-title: 24px;
 @--font-size-login-title-strong: 32px;
@@ -48,3 +56,6 @@
 // 通用
 // 登录/注册
 @--margin-login-title: 32px;
+// 侧边栏菜单
+@--margin-sider-menu-item: 4px 0 8px;
+@--margin-sider-submenu-item: 4px 0;

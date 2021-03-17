@@ -18,7 +18,22 @@ const accounts = [
 ]
 const _captcha = {}
 let _captchaInterval = null
-const MENUS_PERMIT = ['wsd:home', 'wsd:dashboard']
+const PAGES_PERMIT = [
+  'page:home',
+  'page:dashboard',
+  'page:form',
+  'page:form-basic',
+  'page:form-complex',
+  'page:list'
+]
+const MENUS_PERMIT = [
+  'menu:home',
+  'menu:dashboard',
+  'menu:form',
+  'menu:form-basic',
+  'menu:form-complex',
+  'menu:list'
+]
 
 const _getUserInfo = function (options) {
   const body = getBody(options)
@@ -37,6 +52,7 @@ const _getUserInfo = function (options) {
         position: 'Web Front-end Engineer',
         shortDescription: 'a web front-end engineer',
         funcs: [],
+        pages: PAGES_PERMIT,
         menus: MENUS_PERMIT
       }
     }).data

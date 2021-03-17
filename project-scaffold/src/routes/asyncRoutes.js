@@ -11,7 +11,7 @@ const ASYNC_ROUTES = [
     name: 'home',
     component: () => import('@/views/Home'),
     meta: {
-      permitCode: 'wsd:home'
+      permitCode: 'page:home'
     }
   },
   {
@@ -19,7 +19,7 @@ const ASYNC_ROUTES = [
     name: 'dashboard',
     component: () => import('@/views/dashboard/Index'),
     meta: {
-      permitCode: 'wsd:dashboard'
+      permitCode: 'page:dashboard'
     }
   }
 ]
