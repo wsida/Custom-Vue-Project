@@ -79,6 +79,7 @@
 - index 文件 -根store
 - types 文件 -定义mutations、actions名称常量
 - modules 目录（定义store模块）
+**注意** modules 如果启用 命名空间（namespaced: true），dispatch、commit 要加模块名称前缀，但mapState可以传入`模块名称(1参)`以及直接使用`字符串数组(2参)`就能得到模块state，如果禁用 命名空间，dispatch、commit 不需要加模块前缀，但是模块state需要在 mapState 使用`对象(1参)`参数建立映射关系([string]: (state) => any)。
 
 ## styles 目录
 
