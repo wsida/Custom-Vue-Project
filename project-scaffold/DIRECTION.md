@@ -58,11 +58,12 @@
 **使用 `require.context()` 方法一次性引入目录文件模块**
 
 *扩展：*
-`require.context(directory, useSubdirectories, regExp)`
+`require.context(directory, useSubdirectories, regExp): function`
 
 - irectory: 要查找的文件路径
 - useSubdirectories: 是否查找子目录
 - regExp: 要匹配文件的正则
+- return: 返回一个函数，通过 `.keys()` 返回匹配的所有模块地址，传入对应key值，获取对应模块内容。通过正则可解析文件名称作为模块名称。
 
 ## routes 目录
 

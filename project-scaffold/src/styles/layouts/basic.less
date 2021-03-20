@@ -1,6 +1,25 @@
 @import '../common/variable.less';
 @import '../common/mixins.less';
 
+// 过渡效果
+.slide-fade-enter-active {
+  transition: all .25s ease-out 0.2s;
+}
+
+.slide-fade-leave-active {
+  transition: all .2s ease;
+}
+
+.slide-fade-enter {
+  transform: translateX(-100vw);
+  opacity: 1;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(100vw);
+  opacity: 0;
+}
+
 // 基本布局
 .wsd-basic-layout {
   position: relative;
@@ -55,6 +74,9 @@
     &:hover {
       background-color: @--color-layout-header-hover;
     }
+    &:active {
+      background-color: @--color-layout-header-active;
+    }
   }
   .wsd-header_username {
     padding-right: 12px;
@@ -89,11 +111,11 @@
   .wsd-header-message__item {
     overflow: hidden;
     .wsd-header-message__title {
-      color: @--color-sider-menu-hover-color;
+      color: @--color-text;
       .wsd-ellipsis();
     }
     .wsd-header-message__time {
-      color: @--color-sider-menu-color;
+      color: @--color-auxiliary-text;
       font-size: 12px;
       .wsd-ellipsis();
     }
@@ -137,13 +159,13 @@
     text-align: right;
     font-size: 16px;
     span {
-      color: @--color-sider-menu-color;
+      // color: @--color-sider-menu-color;
       cursor: pointer;
       &:hover {
-        color: @--color-sider-menu-hover-color;
+        color: @--color-sider-menu-hover;
       }
       &:active {
-        color: @--color-sider-menu-active-color;
+        color: @--color-sider-menu-active;
       }
     }
   }
@@ -155,19 +177,46 @@
       &.ant-menu-inline {
         // menu-item
         .ant-menu-item {
+          &.ant-menu-item-selected {
+            background-color: @--color-sider-menu-hover-background;
+          }
+          &:active {
+            background-color: @--color-sider-menu-active-background;
+          }
+          // 菜单选择bar
+          &::after {
+            left: 0;
+            right: unset;
+            border-right-width: 0;
+            border-left: 3px solid @--color-sider-menu-active-bar;
+          }
+        }
+
+        .ant-menu-submenu {
+          .ant-menu-submenu-title {
+            &:active {
+              background-color: @--color-sider-menu-active-background;
+            }
+          }
+        }
+      }
+      // 自定义颜色
+      /* &.ant-menu-inline {
+        // menu-item
+        .ant-menu-item {
           color: @--color-sider-menu-color;
           margin: @--margin-sider-menu-item;
 
           &:hover {
-            color: @--color-sider-menu-hover-color;
+            color: @--color-sider-menu-hover;
             background-color: @--color-sider-menu-hover-background;
           }
           &:active {
-            color: @--color-sider-menu-active-color;
+            color: @--color-sider-menu-active;
             background-color: @--color-sider-menu-active-background;
           }
           &.ant-menu-item-selected {
-            color: @--color-sider-menu-hover-color;
+            color: @--color-sider-menu-hover;
             background-color: @--color-sider-menu-hover-background;
           }
           // 菜单选择bar
@@ -180,35 +229,43 @@
         }
         // sub-menu
         .ant-menu-submenu {
+          // submenu 有选中菜单
+          &.ant-menu-submenu-selected:not(.ant-menu-submenu-open) {
+            color: @--color-sider-menu-hover;
+            .ant-menu-submenu-title {
+              color: @--color-sider-menu-hover;
+            }
+          }
           .ant-menu-submenu-title {
             color: @--color-sider-menu-color;
             margin: @--margin-sider-submenu-item;
 
             &:hover {
-              color: @--color-sider-menu-hover-color;
+              color: @--color-sider-menu-hover;
               .ant-menu-submenu-arrow {
                 &::before,
                 &::after {
-                  background-image: linear-gradient(to right, @--color-sider-menu-hover-color, @--color-sider-menu-active-color);
+                  background-image: linear-gradient(to right, @--color-sider-menu-hover, @--color-sider-menu-active);
                 }
               }
             }
             &:active {
-              color: @--color-sider-menu-active-color;
+              color: @--color-sider-menu-active;
               background-color: @--color-sider-menu-active-background;
               .ant-menu-submenu-arrow {
                 &::before,
                 &::after {
-                  background-image: linear-gradient(to right, @--color-sider-menu-active-color, @--color-sider-menu-active-color);
+                  background-image: linear-gradient(to right, @--color-sider-menu-active, @--color-sider-menu-active);
                 }
               }
             }
           }
         }
-      }
+      } */
 
       // 收缩
-      &.ant-menu-inline-collapsed {
+      // 自定义颜色
+      /* &.ant-menu-inline-collapsed {
         // menu-item
         .ant-menu-item {
           font-size: 16px;
@@ -217,30 +274,71 @@
           color: @--color-sider-menu-color;
 
           &.ant-menu-item-selected {
-            color: @--color-sider-menu-hover-color;
+            color: @--color-sider-menu-hover;
             background-color: @--color-sider-menu-hover-background;
           }
 
           &:hover {
-            color: @--color-sider-menu-hover-color;
+            color: @--color-sider-menu-hover;
             // background-color: @--color-sider-menu-hover-background;
           }
           &:active {
-            color: @--color-sider-menu-active-color;
+            color: @--color-sider-menu-active;
             // background-color: @--color-sider-menu-active-background;
           }
         }
         // sub-menu
-        .ant-menu-submenu-title {
+
+        .ant-menu-submenu {
+          // submenu 有选中菜单
+          &.ant-menu-submenu-selected:not(.ant-menu-submenu-open) {
+            color: @--color-sider-menu-hover;
+            .ant-menu-submenu-title {
+              color: @--color-sider-menu-hover;
+            }
+          }
+          .ant-menu-submenu-title {
+            font-size: 16px;
+            padding: 0 8px !important;
+            text-align: center;
+            color: @--color-sider-menu-color;
+            &:hover {
+              color: @--color-sider-menu-hover;
+            }
+            &:active {
+              color: @--color-sider-menu-active;
+            }
+          }
+        }
+      } */
+      &.ant-menu-inline-collapsed {
+        // menu-item
+        .ant-menu-item {
           font-size: 16px;
           padding: 0 8px !important;
           text-align: center;
-          color: @--color-sider-menu-color;
-          &:hover {
-            color: @--color-sider-menu-hover-color;
-          }
+
           &:active {
-            color: @--color-sider-menu-active-color;
+            background-color: @--color-sider-menu-active-background;
+          }
+          // color: @--color-sider-menu-color;
+
+          &.ant-menu-item-selected {
+            // color: @--color-sider-menu-hover;
+            background-color: @--color-sider-menu-hover-background;
+          }
+        }
+        // sub-menu
+
+        .ant-menu-submenu {
+          .ant-menu-submenu-title {
+            font-size: 16px;
+            padding: 0 8px !important;
+            text-align: center;
+            // color: @--color-sider-menu-color;
+            &:active {
+              background-color: @--color-sider-menu-active-background;
+            }
           }
         }
       }
@@ -258,11 +356,141 @@
 .wsd-user-drawer {
   .ant-drawer-content {
     position: relative;
-    background: @--color-sider-menu-hover-background;
+    background: @--color-user-drawer-background;
     padding: 0;
-    .ant-drawer-body {
+    .ant-drawer-wrapper-body {
       position: relative;
-      padding: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      .ant-drawer-header {
+        flex-shrink: 0;
+        height: @--height-user-drawer-title;
+        line-height: @--height-user-drawer-title;
+        padding: @--margin-vertical-user-drawer-title @--margin-horizontal-user-drawer-title;
+        .ant-drawer-title {
+          height: inherit;
+          line-height: inherit;
+        }
+        .ant-drawer-close {
+          width: 48px;
+          height: 48px;
+          line-height: 48px;
+        }
+      }
+      .ant-drawer-body {
+        flex: 1 0;
+        position: relative;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+    }
+  }
+
+  .wsd-user-drawer__inner {
+    // 用户信息
+    .wsd-user-drawer__header {
+      // 用户信息
+      .wsd-user-drawer__info {
+        border-width: 0;
+        background: transparent;
+        .ant-card-body {
+          padding: @--margin-vertical-user-drawer-card-title @--margin-horizontal-user-drawer-card-title;
+          .ant-card-meta-title {
+            margin-bottom: 0;
+          }
+          .ant-card-meta-avatar {
+            position: relative;
+            .wsd-user-drawer__avatarContent {
+              position: relative;
+              width: 52px;
+              height: 52px;
+              overflow: hidden;
+              cursor: pointer;
+              &:hover {
+                .wsd-user-drawer__avatar {
+                  &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    background-color: @--color-user-drawer-avatar-change-background;
+                  }
+                }
+                .wsd-user-drawer__avatarMask {
+                  display: inline-block;
+                }
+              } 
+              .wsd-user-drawer__avatarMask {
+                display: none;
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 100%;
+                z-index: 2;
+                transform: translateY(-50%);
+                text-align: center;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: 12px;
+                color: @--color-auxiliary-text;
+                background-color: @--color-user-drawer-avatar-change-mask-background;
+              }
+            }
+          }
+        }
+      }
+      // 其他信息
+      .wsd-user-drawer__otherInfo {
+        padding: 0 @--margin-horizontal-user-drawer-card-title;
+        .wsd-user-drawer__otherInfoItem {
+          position: relative;
+          display: flex;
+          justify-content: flex-start;
+          span {
+            font-size: 12px;
+            color: @--color-auxiliary-text;
+            line-height: 16px;
+            &.wsd-user-drawer__otherInfoItem--icon {
+              flex-shrink: 0;
+              margin-right: 12px;
+            }
+          }
+        }
+        .wsd-user-drawer__otherInfoItem + .wsd-user-drawer__otherInfoItem {
+          margin-top: 4px;
+        }
+      }
+    }
+    // 用户主体
+    .wsd-user-drawer__body {
+      position: relative;
+      padding: @--margin-vertical-user-drawer-body @--margin-horizontal-user-drawer-body;
+      margin-bottom: @--margin-vertical-user-drawer-body + @--height-user-drawer-footer;
+      .wsd-user-drawer__bodyChart {
+        position: relative;
+        height: 30%;
+        min-height: 400px;
+      }
+      .wsd-user-drawer__bodyRanking {
+        position: relative;
+        height: 40%;
+        min-height: 500px;
+      }
+    }
+    // 页脚操作
+    .wsd-user-drawer__footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 0 @--margin-horizontal-user-drawer-footer;
+      height: @--height-user-drawer-footer;
+      line-height: @--height-user-drawer-footer;
+      border-top: 1px solid @--color-border;
     }
   }
 }

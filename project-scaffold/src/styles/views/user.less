@@ -1,9 +1,5 @@
 @import '../common/variable.less';
 
-@--width-max-login-form: 340px;
-@--width-min-login-form: 220px;
-@--margin-register-form-steps: 32px;
-
 // 登录
 .wsd-login-form {
   position: relative;
@@ -15,12 +11,13 @@
     margin-top: 0;
   }
   .wsd-login-form__title {
+    font-family: monospace;
+    text-shadow: 1px -1px 1px darken(@primary-color, 10%);
     font-size: @--font-size-login-title;
-    margin-bottom: @--margin-login-title;
     color: @primary-color;
+    margin-bottom: @--margin-login-title;
     .is-strong {
       font-size: @--font-size-login-title-strong;
-      text-shadow: 1px -1px 1px darken(@primary-color, 10%);
     }
   }
 

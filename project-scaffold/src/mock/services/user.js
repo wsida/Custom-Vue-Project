@@ -7,11 +7,13 @@ import { builder, getBody, decrypt, encrypt } from '../utils'
 const accounts = [
   {
     username: 'admin',
+    description: '-',
     password: '888888',
     telphone: '18888888888'
   },
   {
     username: 'user',
+    description: '-',
     password: '888888',
     telphone: '15888888888'
   }
@@ -19,20 +21,28 @@ const accounts = [
 const _captcha = {}
 let _captchaInterval = null
 const PAGES_PERMIT = [
-  'page:home',
   'page:dashboard',
   'page:form',
   'page:form-basic',
   'page:form-complex',
-  'page:list'
+  'page:list',
+  'page:list-basic',
+  'page:list-infinite-scroll',
+  'page:table',
+  'page:table-basic',
+  'page:table-complex'
 ]
 const MENUS_PERMIT = [
-  'menu:home',
   'menu:dashboard',
   'menu:form',
   'menu:form-basic',
   'menu:form-complex',
-  'menu:list'
+  'menu:list',
+  'menu:list-basic',
+  'menu:list-infinite-scroll',
+  'menu:table',
+  'menu:table-basic',
+  'menu:table-complex'
 ]
 
 const _getUserInfo = function (options) {
@@ -49,8 +59,9 @@ const _getUserInfo = function (options) {
         city: 'FuJian',
         region: 'China',
         email: '@email',
+        company: 'XXX Company',
         position: 'Web Front-end Engineer',
-        shortDescription: 'a web front-end engineer',
+        description: 'a web front-end engineer',
         funcs: [],
         pages: PAGES_PERMIT,
         menus: MENUS_PERMIT

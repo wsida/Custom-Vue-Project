@@ -11,6 +11,7 @@ const isObject = function (data) {
 const modules = require.context('./modules', false, /\.js$/)
 modules.keys().forEach(m => {
   const apis = modules(m).default
+  // [完整匹配，第一个括号匹配，第二个括号匹配]
   const matchKey = m.match(/\.\/(.*)(\.js)/)
   const moduleName = matchKey[1]
   if (moduleName) {

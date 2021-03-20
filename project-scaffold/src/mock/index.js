@@ -6,6 +6,7 @@ if (process.env.NODE_ENV === 'dev') {
   // 动态解析目录文件
   const modules = require.context('./services', false, /\.js$/)
   modules.keys().forEach(m => {
+    // 只需要整合所以模块的mock接口，不需要模块名称
     const apis = modules(m).default
     APIS = {
       ...APIS,
@@ -13,7 +14,7 @@ if (process.env.NODE_ENV === 'dev') {
     }
   })
 
-  console.log(APIS)
+  // console.log(APIS)
 
   const observer = function (apis) {
     if (!apis) return

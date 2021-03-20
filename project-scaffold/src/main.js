@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import store from './store'
+import store from './store' // 全局状态树
+import i18n from './i18n' // 多语言
 import router from './plugins/router'
 import $api from './api'
 import axios from './plugins/axios'
@@ -24,5 +25,6 @@ Vue.prototype.$axios = axios
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

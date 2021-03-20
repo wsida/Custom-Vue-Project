@@ -6,7 +6,7 @@ import staticRoutes from '@/routes/staticRoutes'
 import store from '@/store'
 import VueCookie from 'vue-cookie'
 import {
-  USER_TOKEN
+  WSD_USER_TOKEN
 } from '@/config/cookies'
 import {
   GET_USER_INFO
@@ -39,7 +39,7 @@ export async function beforeEach (to, from, next) {
   if (WHITE_ROUTES.indexOf(to.name) !== -1) {
     next()
   } else {
-    const token = VueCookie.get(USER_TOKEN)
+    const token = VueCookie.get(WSD_USER_TOKEN)
     if (!token) {
       next({ name: 'login' })
     } else if (!store.state.user.userInfo || JSON.stringify(store.state.user.userInfo) === '{}') {

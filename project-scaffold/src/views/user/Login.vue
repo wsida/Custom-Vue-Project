@@ -140,7 +140,7 @@
 import { encrypt } from '@/utils/aes'
 import VueCookie from 'vue-cookie'
 import {
-  USER_TOKEN
+  WSD_USER_TOKEN
 } from '@/config/cookies'
 
 export default {
@@ -218,7 +218,7 @@ export default {
               console.log(res)
               if (res.data.code === '0') {
                 // TODO 登录跳转
-                VueCookie.set(USER_TOKEN, res.data.data)
+                VueCookie.set(WSD_USER_TOKEN, res.data.data, 24 * 60 * 60 * 1000)
                 this.goHome()
               } else if (res.data.code === '10010') {
                 this.form && this.form.setFields({
@@ -246,7 +246,7 @@ export default {
               console.log(res)
               if (res.data.code === '0') {
                 // TODO 登录跳转
-                VueCookie.set(USER_TOKEN, res.data.data)
+                VueCookie.set(WSD_USER_TOKEN, res.data.data)
                 this.goHome()
               } else if ((res.data.code === '10022')) {
                 this.form && this.form.setFields({

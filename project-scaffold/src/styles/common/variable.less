@@ -25,15 +25,20 @@
 
 // 布局
 @--color-layout-header-shadow: darken(@--color-body-background, 15%);
-@--color-layout-header-hover: darken(@--color-body-background, 5%);
+@--color-layout-header-hover: @--color-body-background;
+@--color-layout-header-active: darken(@--color-body-background, 1%);
 // 菜单
 @--color-sider-menu-color: @--color-auxiliary-text;
-@--color-sider-menu-hover-color: @--color-text;
-@--color-sider-menu-active-color: @--color-subTitle;
+@--color-sider-menu-hover: @primary-color; // @--color-text;
+@--color-sider-menu-active: darken(@primary-color, 10%); // @--color-subTitle;
 @--color-sider-menu-background: transparent;
 @--color-sider-menu-hover-background: @--color-body-background;
-@--color-sider-menu-active-background: darken(@--color-body-background, 5%);
+@--color-sider-menu-active-background: darken(@--color-body-background, 1%);
 @--color-sider-menu-active-bar: @primary-color;
+// 用户drawer
+@--color-user-drawer-background: @--color-body-background;
+@--color-user-drawer-avatar-change-background: lighten(rgba(0, 0, 0, .1), 10%);
+@--color-user-drawer-avatar-change-mask-background: lighten(rgba(0, 0, 0, .9), 90%);
 
 // -- 字体 -- //
 // 通用
@@ -46,6 +51,14 @@
 // 全局头部
 @--font-size-header-title: 30px;
 
+// -- 长度 -- //
+// 用户登录/注册/忘记密码
+@--width-max-login-form: 340px;
+@--width-min-login-form: 220px;
+// 用户信息drawer
+@--height-user-drawer-title: 48px;
+@--height-user-drawer-footer: 48px;
+
 // -- 边框 -- //
 // 通用
 @--border-radius: 4px;
@@ -56,6 +69,15 @@
 // 通用
 // 登录/注册
 @--margin-login-title: 32px;
+@--margin-register-form-steps: 32px;
 // 侧边栏菜单
 @--margin-sider-menu-item: 4px 0 8px;
 @--margin-sider-submenu-item: 4px 0;
+// 用户信息drawer
+@--margin-vertical-user-drawer-title: 0;
+@--margin-horizontal-user-drawer-title: 16px;
+@--margin-horizontal-user-drawer-card-title: @--margin-horizontal-user-drawer-title;
+@--margin-vertical-user-drawer-card-title: 12px;
+@--margin-vertical-user-drawer-body: @--margin-vertical-user-drawer-card-title;
+@--margin-horizontal-user-drawer-body: @--margin-horizontal-user-drawer-title;
+@--margin-horizontal-user-drawer-footer: @--margin-horizontal-user-drawer-title;

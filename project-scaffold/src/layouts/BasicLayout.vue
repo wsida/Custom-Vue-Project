@@ -6,16 +6,14 @@
     <a-layout class="wsd-basic-layout--inner">
       <a-layout-sider
         class="wsd-basic-sider"
-        :collapsedWidth="48"
+        :collapsedWidth="64"
         :collapsed="collapsed"
         :trigger="null"
       >
-        <global-sider
-          :collapsed.sync="collapsed"
-        ></global-sider>
+        <global-sider></global-sider>
       </a-layout-sider>
       <a-layout-content class="wsd-basic-content">
-        <transition name="slide">
+        <transition name="slide-fade">
           <router-view></router-view>
         </transition>
       </a-layout-content>
@@ -26,16 +24,15 @@
 <script>
 import GlobalHeader from './GlobalHeader'
 import GlobalSider from './GlobalSider'
+import { mapState } from 'vuex'
 export default {
   name: 'BasicLayout',
   components: {
     GlobalHeader,
     GlobalSider
   },
-  data () {
-    return {
-      collapsed: false
-    }
+  computed: {
+    ...mapState(['collapsed'])
   }
 }
 </script>
