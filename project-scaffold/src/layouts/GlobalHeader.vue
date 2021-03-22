@@ -70,8 +70,7 @@
       <a-drawer
         placement="right"
         wrapClassName="wsd-user-drawer"
-        :title="$t('common.userInfo')"
-        :closable="true"
+        :closable="false"
         :width="320"
         :visible="userVisible"
         @close="handleCloseUserDrawer"

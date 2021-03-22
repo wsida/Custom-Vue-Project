@@ -360,11 +360,12 @@
     padding: 0;
     .ant-drawer-wrapper-body {
       position: relative;
-      display: flex;
-      flex-direction: column;
+      .wsd-flex();
+      .is-align-stretch();
+      .is-direction-column();
       overflow: hidden;
       .ant-drawer-header {
-        flex-shrink: 0;
+        .set-shrink(0);
         height: @--height-user-drawer-title;
         line-height: @--height-user-drawer-title;
         padding: @--margin-vertical-user-drawer-title @--margin-horizontal-user-drawer-title;
@@ -379,107 +380,211 @@
         }
       }
       .ant-drawer-body {
-        flex: 1 0;
+        .set-basis(0);
+        .set-grow(1);
         position: relative;
         padding: 0;
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
       }
     }
   }
 
   .wsd-user-drawer__inner {
-    // 用户信息
-    .wsd-user-drawer__header {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    .wsd-user-drawer__span {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: @--width-wsd-user-drawer-close;
+      height: @--width-wsd-user-drawer-close;
+      text-align: center;
+      line-height: @--width-wsd-user-drawer-close;
+      color: @--color-user-drawer-close;
+      z-index: 1;
+      cursor: pointer;
+      &:hover {
+        color: @--color-user-drawer-hover-close;
+      }
+      &:active {
+        color: @--color-user-drawer-active-close;
+      }
+    }
+    .wsd-user-drawer__content {
+      position: relative;
+      height: calc(100% - @--height-user-drawer-footer);
+      overflow-x: hidden;
+      overflow-y: auto;
       // 用户信息
-      .wsd-user-drawer__info {
-        border-width: 0;
-        background: transparent;
-        .ant-card-body {
-          padding: @--margin-vertical-user-drawer-card-title @--margin-horizontal-user-drawer-card-title;
-          .ant-card-meta-title {
-            margin-bottom: 0;
-          }
-          .ant-card-meta-avatar {
-            position: relative;
-            .wsd-user-drawer__avatarContent {
+      .wsd-user-drawer__header {
+        // 用户信息
+        .wsd-user-drawer__info {
+          border-width: 0;
+          background: transparent;
+          .ant-card-body {
+            padding: @--margin-vertical-user-drawer-card-title @--margin-horizontal-user-drawer-card-title;
+            .ant-card-meta-title {
+              margin-bottom: 0;
+              padding-right: @--width-wsd-user-drawer-close / 2
+            }
+            .ant-card-meta-avatar {
               position: relative;
-              width: 52px;
-              height: 52px;
-              overflow: hidden;
-              cursor: pointer;
-              &:hover {
-                .wsd-user-drawer__avatar {
-                  &::after {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 1;
-                    background-color: @--color-user-drawer-avatar-change-background;
-                  }
-                }
-                .wsd-user-drawer__avatarMask {
-                  display: inline-block;
-                }
-              } 
-              .wsd-user-drawer__avatarMask {
-                display: none;
-                position: absolute;
-                left: 0;
-                top: 50%;
-                width: 100%;
-                z-index: 2;
-                transform: translateY(-50%);
-                text-align: center;
+              .wsd-user-drawer__avatarContent {
+                position: relative;
+                width: 52px;
+                height: 52px;
                 overflow: hidden;
-                white-space: nowrap;
-                font-size: 12px;
-                color: @--color-auxiliary-text;
-                background-color: @--color-user-drawer-avatar-change-mask-background;
+                cursor: pointer;
+                &:hover {
+                  .wsd-user-drawer__avatar {
+                    &::after {
+                      content: '';
+                      position: absolute;
+                      left: 0;
+                      top: 0;
+                      width: 100%;
+                      height: 100%;
+                      z-index: 1;
+                      background-color: @--color-user-drawer-avatar-change-background;
+                    }
+                  }
+                  .wsd-user-drawer__avatarMask {
+                    display: inline-block;
+                  }
+                } 
+                .wsd-user-drawer__avatarMask {
+                  display: none;
+                  position: absolute;
+                  left: 0;
+                  top: 50%;
+                  width: 100%;
+                  z-index: 2;
+                  transform: translateY(-50%);
+                  text-align: center;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  font-size: 12px;
+                  color: @--color-auxiliary-text;
+                  background-color: @--color-user-drawer-avatar-change-mask-background;
+                }
               }
             }
           }
         }
+        // 其他信息
+        .wsd-user-drawer__otherInfo {
+          padding: 0 @--margin-horizontal-user-drawer-card-title;
+          .wsd-user-drawer__otherInfoItem {
+            position: relative;
+            .wsd-flex();
+            .is-justify-start();
+            span {
+              font-size: 12px;
+              color: @--color-auxiliary-text;
+              line-height: 16px;
+              &.wsd-user-drawer__otherInfoItem--icon {
+                flex-shrink: 0;
+                margin-right: 12px;
+              }
+            }
+          }
+          .wsd-user-drawer__otherInfoItem + .wsd-user-drawer__otherInfoItem {
+            margin-top: 4px;
+          }
+        }
       }
-      // 其他信息
-      .wsd-user-drawer__otherInfo {
-        padding: 0 @--margin-horizontal-user-drawer-card-title;
-        .wsd-user-drawer__otherInfoItem {
+      // 用户主体
+      .wsd-user-drawer__body {
+        position: relative;
+        padding: @--margin-vertical-user-drawer-body @--margin-horizontal-user-drawer-body;
+        & > * + * {
+          margin-top: @--margin-vertical-user-drawer-body;
+        }
+        .wsd-user-drawer__bodyChart {
           position: relative;
-          display: flex;
-          justify-content: flex-start;
-          span {
-            font-size: 12px;
-            color: @--color-auxiliary-text;
-            line-height: 16px;
-            &.wsd-user-drawer__otherInfoItem--icon {
-              flex-shrink: 0;
-              margin-right: 12px;
+          // min-height: 180px;
+          background-color: #fff;
+          border-radius: @--radius-user-drawer-body-chart;
+          padding: @--padding-user-drawer-body-chart;
+          box-shadow: -3px 5px 8px @--color-user-drawer-chart-shadow;
+          .wsd-user-drawer__title {
+            position: relative;
+            color: @--color-user-drawer-chart-title;
+            font-size: @--font-size-user-drawer-chart-title;
+            .wsd-flex();
+            .is-justify-between();
+            .is-align-middle();
+          }
+          .wsd-user-drawer__value {
+            color: @--color-user-drawer-chart-value;
+            font-size: @--font-size-user-drawer-chart-value;
+            .wsd-ellipsis();
+          }
+          // 背景色
+          &.is-primary {
+            color: #fff;
+            background-color: @primary-color;
+            box-shadow: -3px 5px 8px @--color-user-drawer-chart-primary-shadow;
+            .wsd-user-drawer__title {
+              color: @--color-user-drawer-chart-primary-title;
+            }
+            .wsd-user-drawer__value {
+              color: @--color-user-drawer-chart-primary-value;
+            }
+            .wsd-user-drawer__chart {
+              .wsd-component-chart__resultTitle {
+                color: @--color-component-chart-result-is-primary;
+              }
             }
           }
         }
-        .wsd-user-drawer__otherInfoItem + .wsd-user-drawer__otherInfoItem {
-          margin-top: 4px;
+        .wsd-user-drawer__bodyRanking {
+          position: relative;
+          // min-height: 280px;
+          .wsd-user-drawer__rankingTitle {
+            font-size: @--font-size-user-drawer-ranking-title;
+            color: @--color-user-drawer-ranking-title;
+            margin-bottom: @--margin-user-drawer-ranking-title;
+          }
+          .wsd-user-drawer__ranking {
+            padding: @--margin-user-drawer-ranking-title 0;
+            // 文本
+            .wsd-user-drawer__rankingLabel {
+              .wsd-flex();
+              .is-align-middle();
+              .is-justify-between();
+              .wsd-user-drawer__rankingName {
+                font-size: @--font-size-user-drawer-ranking;
+                color: @--color-user-drawer-ranking-name;
+                .set-grow(1);
+                .set-basis(auto);
+                .wsd-ellipsis();
+              }
+              .wsd-user-drawer__rankingValue {
+                .set-shrink(0);
+                font-size: @--font-size-user-drawer-ranking;
+                .is-profit {
+                  color: @--color-user-drawer-ranking-profit;
+                  font-weight: 500;
+                }
+                .is-ratio {
+                  color: @--color-user-drawer-ranking-ratio;
+                  margin-left: @--margin-user-drawer-ranking-value;
+                }
+              }
+            }
+            // 进度条
+            .wsd-user-drawer__rankingBar {
+              .ant-progress-inner {
+                background-color: @--color-user-drawer-ranking-bar-inner;
+                .ant-progress-bg {
+                  background-color: @--color-user-drawer-ranking-bar;
+                }
+              }
+            }
+          }
         }
-      }
-    }
-    // 用户主体
-    .wsd-user-drawer__body {
-      position: relative;
-      padding: @--margin-vertical-user-drawer-body @--margin-horizontal-user-drawer-body;
-      margin-bottom: @--margin-vertical-user-drawer-body + @--height-user-drawer-footer;
-      .wsd-user-drawer__bodyChart {
-        position: relative;
-        height: 30%;
-        min-height: 400px;
-      }
-      .wsd-user-drawer__bodyRanking {
-        position: relative;
-        height: 40%;
-        min-height: 500px;
       }
     }
     // 页脚操作
@@ -491,6 +596,11 @@
       height: @--height-user-drawer-footer;
       line-height: @--height-user-drawer-footer;
       border-top: 1px solid @--color-border;
+      background: #fff;
     }
   }
+}
+
+.wsd-user-drawer__titleTips {
+  font-size: @--font-size-user-drawer-chart-title;
 }

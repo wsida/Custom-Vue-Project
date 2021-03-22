@@ -1,6 +1,6 @@
 // 样式常量
 // 组件定制主题
-@primary-color: #a26ef4; // 全局主色
+@primary-color: #ae7bff; // 全局主色
 @success-color: #92ce22; // 全局主色
 @warning-color: #ff8823; // 全局主色
 @error-color: #ee5e37; // 全局主色
@@ -24,9 +24,12 @@
 @--color-disabled-text: rgba(0, 0, 0, .25);
 
 // 布局
-@--color-layout-header-shadow: darken(@--color-body-background, 15%);
+@--color-layout-header-shadow: darken(@--color-body-background, 5%);
 @--color-layout-header-hover: @--color-body-background;
 @--color-layout-header-active: darken(@--color-body-background, 1%);
+// 用户注册
+@--color-user-layout-language: @--color-text;
+@--color-user-layout-language-background: #fff;
 // 菜单
 @--color-sider-menu-color: @--color-auxiliary-text;
 @--color-sider-menu-hover: @primary-color; // @--color-text;
@@ -39,6 +42,24 @@
 @--color-user-drawer-background: @--color-body-background;
 @--color-user-drawer-avatar-change-background: lighten(rgba(0, 0, 0, .1), 10%);
 @--color-user-drawer-avatar-change-mask-background: lighten(rgba(0, 0, 0, .9), 90%);
+@--color-user-drawer-chart-title: @--color-auxiliary-text;
+@--color-user-drawer-chart-value: @--color-title;
+@--color-user-drawer-chart-primary-title: rgba(255, 255, 255, .85);
+@--color-user-drawer-chart-primary-value: #fff;
+@--color-user-drawer-chart-shadow: @--color-layout-header-shadow;
+@--color-user-drawer-chart-primary-shadow: lighten(@primary-color, 10%);
+@--color-user-drawer-ranking: @success-color;
+@--color-user-drawer-ranking-ratio: @success-color;
+@--color-user-drawer-ranking-profit: @--color-text;
+@--color-user-drawer-ranking-name: @--color-user-drawer-chart-title;
+@--color-user-drawer-ranking-title: @--color-text;
+@--color-user-drawer-ranking-bar-inner: darken(@--color-body-background, 3%);
+@--color-user-drawer-ranking-bar: @primary-color;
+@--color-user-drawer-close: @--color-disabled-text;
+@--color-user-drawer-hover-close: @--color-auxiliary-text;
+@--color-user-drawer-active-close: @--color-title;
+@--color-component-chart-result: @--color-auxiliary-text;
+@--color-component-chart-result-is-primary: @--color-user-drawer-chart-primary-title;
 
 // -- 字体 -- //
 // 通用
@@ -50,6 +71,14 @@
 @--font-size-login-title-strong: 32px;
 // 全局头部
 @--font-size-header-title: 30px;
+// 用户信息
+@--width-wsd-user-drawer-close: 28px;
+@--font-size-user-drawer-chart-title: 12px;
+@--font-size-user-drawer-chart-value: 22px;
+@--font-size-user-drawer-chart-no-data-icon: 28px;
+@--font-size-user-drawer-ranking: 12px;
+@--font-size-user-drawer-ranking-title: 16px;
+@--font-size-wsd-component-chart-result: 12px;
 
 // -- 长度 -- //
 // 用户登录/注册/忘记密码
@@ -64,10 +93,13 @@
 @--border-radius: 4px;
 @--border-color: @--color-border;
 @--border-width: 1px;
+// 用户信息
+@--radius-user-drawer-body-chart: 8px;
 
 // -- 间距 -- //
 // 通用
 // 登录/注册
+@--margin-user-layout-language: 4px 8px;
 @--margin-login-title: 32px;
 @--margin-register-form-steps: 32px;
 // 侧边栏菜单
@@ -81,3 +113,9 @@
 @--margin-vertical-user-drawer-body: @--margin-vertical-user-drawer-card-title;
 @--margin-horizontal-user-drawer-body: @--margin-horizontal-user-drawer-title;
 @--margin-horizontal-user-drawer-footer: @--margin-horizontal-user-drawer-title;
+@--padding-user-drawer-body-chart: 12px;
+@--margin-user-drawer-chart-no-data: 24px 12px;
+@--margin-user-drawer-chart-no-data-icon: 8px;
+@--margin-user-drawer-ranking-value: 12px;
+@--margin-user-drawer-ranking-title: 4px;
+@--padding-wsd-component-chart-result: 24px 12px;

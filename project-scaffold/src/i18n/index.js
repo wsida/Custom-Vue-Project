@@ -8,7 +8,7 @@ Vue.use(VueI18n)
 const languages = []
 const messages = {}
 
-const messageNames = require.context('./message', false, /\.js$/)
+const messageNames = require.context('./language', false, /\.js$/)
 messageNames.keys().forEach(key => {
   const message = messageNames(key).default
   const name = key.match(/\.\/(.*)(\.js)/)[1]

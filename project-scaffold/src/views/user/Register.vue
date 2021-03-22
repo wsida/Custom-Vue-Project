@@ -2,8 +2,9 @@
 <template>
   <div :class="['wsd-register-form', currentStep === 2 && 'is-block']">
     <div class="wsd-register-form__title">
+      <a-avatar :size="36" :src="logo"></a-avatar>
       <span>WSD - </span>
-      <span class="is-strong">Register</span>
+      <span class="is-strong">{{$t('common.register')}}</span>
     </div>
     <div class="wsd-register-form__content">
       <!-- 注册流程 -->
@@ -12,9 +13,9 @@
         class="wsd-register-form__steps"
         :current="currentStep"
       >
-        <a-step title="Verification"></a-step>
-        <a-step title="Register Account" />
-        <a-step title="Result" />
+        <a-step :title="$t('common.verification')"></a-step>
+        <a-step :title="$t('common.inputInformation')" />
+        <a-step :title="$t('common.result')" />
       </a-steps>
       <a-form
         :form="form"
@@ -32,7 +33,7 @@
               <!-- 手机号输入 -->
               <a-input
                 style="width: calc(100% - 72px);"
-                placeholder="Telphone"
+                :placeholder="$t('common.telphone')"
                 v-decorator="[
                   'telphone',
                   decorators.telphone
@@ -48,7 +49,7 @@
               <a-col :span="12">
                 <a-input
                   clearable
-                  placeholder="Captcha"
+                  :placeholder="$t('common.captcha')"
                   :max-length="6"
                   v-decorator="[
                     'captcha',
@@ -66,7 +67,7 @@
                   :disabled="!!captchaTimeout"
                   @click="handleFetchCaptcha"
                 >
-                  {{ !captchaTimeout ? 'Get Captcha' : captchaTimeout + 's to try again' }}
+                  {{ !captchaTimeout ? $t('common.getCaptcha') : $t('common.captchaCountdown', [captchaTimeout]) }}
                 </a-button>
               </a-col>
             </a-row>
@@ -82,19 +83,19 @@
                   :loading="validateLoading"
                   @click="handleNextStep"
                 >
-                  Next step
+                  {{$t('common.nextStep')}}
                 </a-button>
               </a-col>
             </a-row>
           </a-form-item>
           <a-form-item>
-            has account <a-button type="link" class="wsd-register-form__link" @click="handleGoLogin">login now!</a-button>
+            {{$t('common.hasAccount')}} <a-button type="link" class="wsd-register-form__link" @click="handleGoLogin">{{$t('common.loginNow')}}</a-button>
           </a-form-item>
         </template>
         <template v-else-if="currentStep === 1">
           <a-form-item>
             <a-input
-              placeholder="Username"
+              :placeholder="$t('common.username')"
               :max-length="64"
               v-decorator="[
                 'username',
@@ -106,7 +107,7 @@
           </a-form-item>
           <a-form-item>
             <a-input
-              placeholder="Password"
+              :placeholder="$t('common.password')"
               :type="!isShowPassword ? 'password' : 'text'"
               v-decorator="[
                 'password',
@@ -119,7 +120,7 @@
           </a-form-item>
           <a-form-item>
             <a-input
-              placeholder="Cconfirm password"
+              :placeholder="$t('common.confirmPassword')"
               type="password"
               v-decorator="[
                 'confirmPassword',
@@ -140,13 +141,13 @@
                   :loading="submitLoading"
                   @click="handleSubmit"
                 >
-                  Register
+                  {{$t('common.register')}}
                 </a-button>
               </a-col>
             </a-row>
           </a-form-item>
           <a-form-item>
-            has account <a-button type="link" class="wsd-register-form__link" @click="handleGoLogin">login now!</a-button>
+            {{$t('common.hasAccount')}} <a-button type="link" class="wsd-register-form__link" @click="handleGoLogin">{{$t('common.loginNow')}}</a-button>
           </a-form-item>
         </template>
         <template v-else-if="currentStep === 2">
@@ -159,21 +160,21 @@
                 type="primary"
                 @click="handleGoLogin"
               >
-                Go login
+                {{$t('common.goLogin')}}
               </a-button>
               <a-button
                 v-if="registerResult.status === 'error' && !firstStep"
                 type="danger"
                 @click="handlePrevStep"
               >
-                Prev step
+                {{$t('common.prevStep')}}
               </a-button>
               <a-button
                 v-if="registerResult.status === 'error' && firstStep"
                 type="danger"
                 @click="handleFirstStep"
               >
-                Try again
+                {{$t('common.tryAgain')}}
               </a-button>
             </template>
           </a-result>
@@ -184,19 +185,20 @@
 </template>
 
 <script>
+import logo from '@/assets/logo.svg'
 import { encrypt } from '@/utils/aes'
-const DEFAULT_RESULT = {
+const DEFAULT_RESULT = (self) => ({
   success: {
     status: 'success',
-    title: 'Successfully registered!',
-    subTitle: 'You can sign in directly with your account or mobile number.'
+    title: self.$t('common.register_success_title'),
+    subTitle: self.$t('common.register_success_subtitle')
   },
   error: {
     status: 'error',
-    title: 'Registered has failed!',
-    subTitle: 'You can go back to the previous step to try again.'
+    title: self.$t('common.register_error_title'),
+    subTitle: self.$t('common.register_error_subtitle')
   }
-}
+})
 export default {
   name: 'Login',
   data () {
@@ -212,6 +214,8 @@ export default {
     }
 
     return {
+      logo,
+      DEFAULT_RESULT: DEFAULT_RESULT(this),
       // 登录模式
       currentStep: 0,
       firstStep: false,
@@ -230,36 +234,36 @@ export default {
         username: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input your username', type: 'string' },
-            { pattern: /^[a-zA-Z][\w_]{3,64}$/, message: 'Format error', trigger: 'change' }
+            { required: true, message: this.$t('common.username_tips'), type: 'string' },
+            { pattern: /^[a-zA-Z][\w_]{3,64}$/, message: this.$t('common.formatError'), trigger: 'change' }
           ]
         },
         password: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input your password', type: 'string' },
-            { min: 6, max: 24, message: 'Format error' }
+            { required: true, message: this.$t('common.password_tips'), type: 'string' },
+            { min: 6, max: 24, message: this.$t('common.formatError') }
           ]
         },
         confirmPassword: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input to confirm yout password', type: 'string' },
-            { validator: validatorConfimPassword, message: 'Password do not match twice', trigger: 'change' }
+            { required: true, message: this.$t('common.confirmPassword_tips'), type: 'string' },
+            { validator: validatorConfimPassword, message: this.$t('common.confirmPasswordError_tips'), trigger: 'change' }
           ]
         },
         telphone: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input your phone number', type: 'string' },
-            { pattern: /^1[3-9]\d{9}$/, message: 'Format error', trigger: 'change' }
+            { required: true, message: this.$t('common.telphone_tips'), type: 'string' },
+            { pattern: /^1[3-9]\d{9}$/, message: this.$t('common.formatError'), trigger: 'change' }
           ]
         },
         captcha: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input captcha', type: 'string' },
-            { pattern: /^(\d{4}|\d{6})$/, message: 'Format error', trigger: 'change' }
+            { required: true, message: this.$t('common.captcha_tips'), type: 'string' },
+            { pattern: /^(\d{4}|\d{6})$/, message: this.$t('common.formatError'), trigger: 'change' }
           ]
         }
       },
@@ -304,15 +308,15 @@ export default {
           // TODO调用接口返回注册结果
           this.$api['user/registerAccount'](formData).then(res => {
             if (res.data.code === '0') {
-              this.registerResult = DEFAULT_RESULT.success
+              this.registerResult = this.DEFAULT_RESULT.success
             } else if (res.data.code === '10040' || res.data.code === '10041') {
               this.registerResult = {
-                ...DEFAULT_RESULT.error,
+                ...this.DEFAULT_RESULT.error,
                 ...res.data.data || {}
               }
             } else {
               this.registerResult = {
-                ...DEFAULT_RESULT.error,
+                ...this.DEFAULT_RESULT.error,
                 ...res.data.data || {}
               }
             }

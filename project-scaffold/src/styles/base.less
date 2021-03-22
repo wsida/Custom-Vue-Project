@@ -10,6 +10,7 @@ html, body {
 }
 
 body {
+  position: relative;
   background-color: @--color-body-background;
   min-width: 1002px;
   overflow-x: auto;
@@ -31,4 +32,22 @@ li {
 // 路由加载进度条
 #nprogress .bar {
   background: @primary-color !important;
+}
+
+// tooltip
+.ant-tooltip {
+  font-size: 12px;
+  &.is-light {
+    color: @--color-text;
+    // font-size: @--font-size-default;
+    .ant-tooltip-arrow {
+      &::before {
+        background-color: #fff;
+      }
+    }
+    .ant-tooltip-inner {
+      color: @--color-text;
+      background-color: #fff;
+    }
+  }
 }

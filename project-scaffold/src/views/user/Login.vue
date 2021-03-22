@@ -2,8 +2,9 @@
 <template>
   <div class="wsd-login-form">
     <div class="wsd-login-form__title">
+      <a-avatar :size="36" :src="logo"></a-avatar>
       <span>WSD - </span>
-      <span class="is-strong">Login</span>
+      <span class="is-strong">{{$t('common.login')}}</span>
     </div>
     <div class="wsd-login-form__content">
       <a-form
@@ -13,10 +14,10 @@
         <!-- 切换登录方式 -->
         <a-tabs v-model="mode" @change="handleSwitchMode">
           <!-- 账号/密码 -->
-          <a-tab-pane key="account" tab="Account">
+          <a-tab-pane key="account" :tab="$t('common.accountLogin')">
             <a-form-item>
               <a-input
-                placeholder="Username"
+                :placeholder="$t('common.username')"
                 :max-length="64"
                 v-decorator="[
                   'username',
@@ -28,7 +29,7 @@
             </a-form-item>
             <a-form-item>
               <a-input
-                placeholder="Password"
+                :placeholder="$t('common.password')"
                 :type="!isShowPassword ? 'password' : 'text'"
                 v-decorator="[
                   'password',
@@ -48,19 +49,19 @@
                       decorators.remember,
                     ]"
                   >
-                    Remember
+                    {{$t('common.remember')}}
                   </a-checkbox>
                 </a-col>
                 <a-col :span="10" style="text-align: right;">
                   <a-button type="link" class="wsd-login-form__link" @click="handleForgetpassword">
-                    Forgot password
+                    {{$t('common.forgetPassword')}}
                   </a-button>
                 </a-col>
               </a-row>
             </a-form-item>
           </a-tab-pane>
           <!-- 手机验证码 -->
-          <a-tab-pane key="captcha" tab="Telphone">
+          <a-tab-pane key="captcha" :tab="$t('common.telphoneLogin')">
             <a-form-item>
               <a-input-group compact>
                 <!-- 手机号前缀 -->
@@ -72,7 +73,7 @@
                 <!-- 手机号输入 -->
                 <a-input
                   style="width: calc(100% - 72px);"
-                  placeholder="Telphone"
+                  :placeholder="$t('common.telphone')"
                   v-decorator="[
                     'telphone',
                     decorators.telphone
@@ -88,7 +89,7 @@
                 <a-col :span="12">
                   <a-input
                     clearable
-                    placeholder="Captcha"
+                    :placeholder="$t('common.captcha')"
                     :max-length="6"
                     v-decorator="[
                       'captcha',
@@ -106,7 +107,7 @@
                     :disabled="!!captchaTimeout"
                     @click="handleFetchCaptcha"
                   >
-                    {{ !captchaTimeout ? 'Get Captcha' : captchaTimeout + 's to try again' }}
+                    {{ !captchaTimeout ? $t('common.getCaptcha') : $t('common.captchaCountdown', [captchaTimeout]) }}
                   </a-button>
                 </a-col>
               </a-row>
@@ -123,13 +124,13 @@
                 :loading="submitLoading"
                 @click="handleSubmit"
               >
-                Login
+                {{$t('common.login')}}
               </a-button>
             </a-col>
           </a-row>
         </a-form-item>
         <a-form-item>
-          Or <a-button type="link" class="wsd-login-form__link" @click="handleRegister">register now!</a-button>
+          {{$t('common.or')}} <a-button type="link" class="wsd-login-form__link" @click="handleRegister">{{$t('common.registerNow')}}</a-button>
         </a-form-item>
       </a-form>
     </div>
@@ -137,6 +138,7 @@
 </template>
 
 <script>
+import logo from '@/assets/logo.svg'
 import { encrypt } from '@/utils/aes'
 import VueCookie from 'vue-cookie'
 import {
@@ -147,6 +149,7 @@ export default {
   name: 'Login',
   data () {
     return {
+      logo,
       // 登录模式
       mode: 'account', // 'captcha‘
       telphonePrefix: '+86',
@@ -160,15 +163,15 @@ export default {
         username: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input your username', type: 'string' },
-            { pattern: /^[a-zA-Z][\w_]{3,64}$/, message: 'Format error', trigger: 'change' }
+            { required: true, message: this.$t('common.username_tips'), type: 'string' },
+            { pattern: /^[a-zA-Z][\w_]{3,64}$/, message: this.$t('common.formatError'), trigger: 'change' }
           ]
         },
         password: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input your password', type: 'string' },
-            { min: 6, max: 24, message: 'Format error' }
+            { required: true, message: this.$t('common.password_tips'), type: 'string' },
+            { min: 6, max: 24, message: this.$t('common.formatError') }
           ]
         },
         remember: {
@@ -178,15 +181,15 @@ export default {
         telphone: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input your phone number', type: 'string' },
-            { pattern: /^1[3-9]\d{9}$/, message: 'Format error', trigger: 'change' }
+            { required: true, message: this.$t('common.telphone_tips'), type: 'string' },
+            { pattern: /^1[3-9]\d{9}$/, message: this.$t('common.formatError'), trigger: 'change' }
           ]
         },
         captcha: {
           initialValue: '',
           rules: [
-            { required: true, message: 'Please input captcha', type: 'string' },
-            { pattern: /^(\d{4}|\d{6})$/, message: 'Format error', trigger: 'change' }
+            { required: true, message: this.$t('common.captcha_tips'), type: 'string' },
+            { pattern: /^(\d{4}|\d{6})$/, message: this.$t('common.formatError'), trigger: 'change' }
           ]
         }
       }
