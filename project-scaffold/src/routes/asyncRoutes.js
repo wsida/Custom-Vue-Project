@@ -1,4 +1,10 @@
 // 动态路由-权限路由
+/**
+ * routes 配置项
+ * 新增 meta 字段
+ * permitCode: 菜单权限码
+ * menu: 路由所属左侧菜单地址（主要设置二级页面）
+ */
 export const ROOT_ROUTE = {
   path: '/',
   name: 'app',

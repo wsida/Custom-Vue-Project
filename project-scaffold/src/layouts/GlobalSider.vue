@@ -76,6 +76,11 @@ export default {
   },
 
   watch: {
+    '$route.path' () {
+      this.setOpenKeys()
+      this.setSelectedKeys()
+    },
+
     menus: {
       handler () {
         this.setLocalMenus()
@@ -110,7 +115,7 @@ export default {
 
     // 获取选择菜单
     setSelectedKeys () {
-      this[SET_SELECTEDKEYS]([this.$route.path])
+      this[SET_SELECTEDKEYS]([this.$route.meta && this.$route.meta.menu ? this.$route.meta.menu : this.$route.path])
     },
 
     // 获取submenu展开
@@ -124,9 +129,9 @@ export default {
           if (menu.children && menu.children.length) {
             findLoop(menu.children, menu)
           }
-          if (menu.path === this.$route.path) {
+          if ((this.$route.meta && this.$route.meta.menu === menu.path) || (menu.path === this.$route.path)) {
             isFind = true
-            self[SET_OPENKEYS]([parent ? parent.path : menu.path])
+            self[SET_OPENKEYS]([parent ? parent.path : this.$route.meta && this.$route.meta.menu ? this.$route.meta.menu : menu.path])
           }
         })
       }
