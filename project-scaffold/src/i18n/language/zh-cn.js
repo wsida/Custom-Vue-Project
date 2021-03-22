@@ -1,5 +1,18 @@
 // 中文文案
 export default {
+  // 菜单
+  menu: {
+    dashboard: '仪表盘',
+    form: '表单',
+    basicForm: '基础表单',
+    complexForm: '复杂表单',
+    table: '表格',
+    basicTable: '简单表格',
+    complexTable: '复杂表格',
+    list: '列表',
+    basicList: '简单列表',
+    infiniteScrollList: '无限滚动列表'
+  },
   // 通用
   common: {
     en: '英文',

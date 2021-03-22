@@ -110,7 +110,7 @@ export default {
     ...mapMutations([SET_COLLAPSED, SET_OPENKEYS, SET_SELECTEDKEYS]),
     // 获取菜单
     setLocalMenus () {
-      this.localMenu = getPermitMenus(this.$store.state.user.menus)
+      this.localMenu = getPermitMenus(this, this.$store.state.user.menus)
     },
 
     // 获取选择菜单

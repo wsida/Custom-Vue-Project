@@ -1,5 +1,18 @@
 // 英文文案
 export default {
+  // 菜单
+  menu: {
+    dashboard: 'Dashboard',
+    form: 'Form',
+    basicForm: 'Basic form',
+    complexForm: 'Complex form',
+    table: 'Table',
+    basicTable: 'Basic table',
+    complexTable: 'Complex table',
+    list: 'List',
+    basicList: 'Basic list',
+    infiniteScrollList: 'Infinite scroll list'
+  },
   // 通用
   common: {
     en: 'English',
