@@ -1,7 +1,7 @@
 <template>
   <div class="list-container">
     <div class="list">
-      <Draggable v-model="list">
+      <Draggable v-model="list" :getContainer="getContainer">
         <transition-group tag="div" name="draggle">
           <div v-for="item in list" :key="item" class="list-item">
             {{item}}
@@ -23,13 +23,19 @@ export default {
     return {
       list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
+  },
+  methods: {
+    getContainer () {
+      if (!this.$el) return
+      return this.$el.querySelector('.list')
+    }
   }
 }
 </script>
 <style lang="less">
 .list-container {
   width: 300px;
-  height: 600px;
+  height: 400px;
   background: #f8f8f9;
   overflow-y: auto;
   border: 1px solid #d9d9d9;
@@ -43,6 +49,7 @@ export default {
   color: #fff;
   background: #4189FF;
   margin-bottom: 12px;
+  box-sizing: content-box;
 }
 .draggle-move {
   transition: all 0.25s ease;
