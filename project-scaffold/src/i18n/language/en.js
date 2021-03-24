@@ -17,6 +17,7 @@ export default {
   common: {
     en: 'English',
     'zh-cn': 'Chinese',
+    errorRequest: 'Request error!',
     hello: 'hello, ',
     help: 'Information',
     modifyAvatar: 'Change',
@@ -75,6 +76,14 @@ export default {
     modify_password_error_title: 'Password modification failed!',
     modify_password_error_subtitle: 'You can go back to the previous step to try again.'
   },
+  options: {
+    all: 'All',
+    passed: 'Passed',
+    audit: 'Audit',
+    failed: 'Failed',
+    private: 'Private',
+    public: 'Public'
+  },
   // 报表
   chart: {
     todayVisits: 'Today Visits',
@@ -87,5 +96,10 @@ export default {
   message: {
     newMessage: 'New message',
     allRead: 'All read'
+  },
+  // 列表
+  list: {
+    upload: 'Upload',
+    download: 'Download'
   }
 }

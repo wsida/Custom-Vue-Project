@@ -1,4 +1,5 @@
 <script>
+// 实现过渡效果 - 使用transition-group 定义 [name]-move 样式类实现移动过渡效果
 // import { ref } from 'vue'
 const ctx = '@@draggableHeight'
 const ctxmgt = '@@draggableMarginTop'

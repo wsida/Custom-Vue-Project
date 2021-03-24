@@ -17,6 +17,7 @@ export default {
   common: {
     en: '英文',
     'zh-cn': '中文',
+    errorRequest: '请求失败!',
     hello: '您好，',
     help: '帮助',
     modifyAvatar: '修改头像',
@@ -75,6 +76,14 @@ export default {
     modify_password_error_title: '密码修改失败！',
     modify_password_error_subtitle: '您可以返回上一步再试一次。'
   },
+  options: {
+    all: '全部',
+    passed: '已通过',
+    audit: '待审核',
+    failed: '未通过',
+    private: '已私密',
+    public: '已公开'
+  },
   // 报表
   chart: {
     todayVisits: '今日访问量',
@@ -87,5 +96,10 @@ export default {
   message: {
     newMessage: '未读消息',
     allRead: '全部已读'
+  },
+  // 列表
+  list: {
+    upload: '上传明细',
+    download: '下载明细'
   }
 }
