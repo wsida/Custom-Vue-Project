@@ -1,10 +1,11 @@
 <template>
   <div class="list-container">
     <div class="list">
-      <Draggable v-model="list" :getContainer="getContainer">
+      <Draggable v-model="list" :getContainer="getContainer" :getTarget="getTarget">
         <transition-group tag="div" name="draggle">
           <div v-for="item in list" :key="item" class="list-item">
             {{item}}
+            <span class="draggable-item">拖拽</span>
           </div>
         </transition-group>
       </Draggable>
@@ -28,6 +29,10 @@ export default {
     getContainer () {
       if (!this.$el) return
       return this.$el.querySelector('.list')
+    },
+
+    getTarget (el) {
+      return el.querySelector('.draggable-item')
     }
   }
 }
@@ -53,5 +58,11 @@ export default {
 }
 .draggle-move {
   transition: all 0.25s ease;
+}
+.draggable-item {
+  display: inline-block;
+  float: right;
+  padding: 2px 4px;
+  background: red;
 }
 </style>

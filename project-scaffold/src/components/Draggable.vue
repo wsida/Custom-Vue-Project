@@ -76,20 +76,21 @@ export default {
   },
   data () {
     return {
-      VNodes: [],
-      clickIndex: -1,
-      transition: false,
-      clickTarget: null,
-      moveDom: null,
-      mouseUp: null,
-      mouseMove: null,
-      mouseDown: null
+      VNodes: [], // 收集插槽vnode
+      VNodeEvents: {}, // 收集触发拖拽mousedown事件，保证唯一
+      clickIndex: -1, // 拖拽vnode索引
+      clickTarget: null, // 拖拽vnode
+      transition: false, // 是否传入transition-group，过渡
+      moveDom: null, // 克隆Element节点
+      mouseUp: null, // 鼠标mouseup对象
+      mouseMove: null, // 鼠标mousemove对象
+      mouseDown: null // 鼠标mousedown对象
     }
   },
 
   methods: {
     handleMouseDown (e, index, vnode) {
-      // console.log('mousedown:', e, el)
+      // console.log('mousedown:', e)
       // 触发拖拽
       if (vnode.elm) {
         this.mouseDown = e
@@ -119,13 +120,21 @@ export default {
       }
     },
 
+    handleMouseMove (e) {
+      // console.log('mousemove:', e)
+      // 实现拖拽效果 - 更新拖拽节点位置
+      this.mouseMove = e
+      const distance = e.clientY - this.mouseDown.clientY
+      const containerRect = this.getContainer().getBoundingClientRect()
+      const clickTargetRect = this.clickTarget.elm.getBoundingClientRect()
+      this.moveDom.style.top = `${(clickTargetRect.top - containerRect.top) + distance}px`
+    },
+
     handleMouseUp (e) {
       // console.log('mouseup:', e)
-      // this.clickIndex = -1
-      // this.mouseMove = null
-      // this.mouseDown = null
-      // 拖拽结束 - 计算拖拽距离
       this.mouseUp = e
+      let isUpdate = false
+      // 拖拽结束 - 计算拖拽距离
       if (this.mouseUp && this.mouseDown) {
         const distance = this.mouseUp.clientY - this.mouseDown.clientY
         const dragOffset = this.mouseDown.clientY - this.clickTarget.elm.getBoundingClientRect().top
@@ -139,6 +148,7 @@ export default {
             if (start >= Math.abs(distance)) {
               newList.splice(i + 1, 0, this.list[this.clickIndex])
               newList.splice(this.clickIndex + 1, 1)
+              isUpdate = true
               break
             }
           }
@@ -146,6 +156,7 @@ export default {
           if (start < Math.abs(distance)) {
             newList.unshift(this.list[this.clickIndex])
             newList.splice(this.clickIndex + 1, 1)
+            isUpdate = true
           }
         } else if (distance > 0) {
           // 向下托拽
@@ -154,6 +165,7 @@ export default {
             if (start >= distance) {
               newList.splice(i, 0, this.list[this.clickIndex])
               newList.splice(this.clickIndex, 1)
+              isUpdate = true
               break
             }
           }
@@ -161,13 +173,20 @@ export default {
           if (start < distance) {
             newList.push(this.list[this.clickIndex])
             newList.splice(this.clickIndex, 1)
+            isUpdate = true
           }
         }
         // console.log(newList)
         // 更新绑定数据集 - 触发渲染
         this.$emit('update:list', newList)
       }
+      // 恢复拖拽前状态
+      this.restoreAfterDrag(isUpdate)
+    },
 
+    restoreAfterDrag (isUpdate) {
+      // 去除绑定vnode的mousedown事件
+      isUpdate && this.removeVnodesMousedown()
       // 拖拽结束 - 还原拖拽前状态
       document.body.style.cursor = 'default'
       document.body.style['user-select'] = 'auto'
@@ -185,19 +204,44 @@ export default {
       off(document, 'mouseup', this.handleMouseUp)
     },
 
-    handleMouseMove (e) {
-      // console.log('mousemove:', e)
-      // 实现拖拽效果 - 更新拖拽节点位置
-      this.mouseMove = e
-      const distance = e.clientY - this.mouseDown.clientY
-      const containerRect = this.getContainer().getBoundingClientRect()
-      const clickTargetRect = this.clickTarget.elm.getBoundingClientRect()
-      this.moveDom.style.top = `${(clickTargetRect.top - containerRect.top) + distance}px`
+    removeVnodesMousedown () {
+      if (!this.transition) {
+        this.removeVnodeMousedown(this.VNodes)
+      } else {
+        this.removeVnodeMousedown(this.VNodes[0].componentOptions.children)
+      }
+    },
+
+    // 移除mousedown事件
+    removeVnodeMousedown (vnodes) {
+      const { getTarget } = this
+      vnodes.forEach((vnode, index) => {
+        if (vnode.elm) {
+          off(getTarget(vnode.elm), 'mousedown', this.VNodeEvents[`${ctxevent}${index}`])
+        }
+      })
+    },
+
+    // 新增mousedown事件-计算宽度
+    renderVnode (vnodes) {
+      const { getTarget } = this
+      const self = this
+      vnodes.forEach((vnode, index) => {
+        if (vnode.elm) {
+          vnode[ctx] = vnode.elm.getBoundingClientRect().height
+          vnode[ctxmgt] = parseFloat(getCurrentStyle(vnode.elm, 'margin-top'))
+          vnode[ctxmgb] = parseFloat(getCurrentStyle(vnode.elm, 'margin-bottom'))
+          off(getTarget(vnode.elm), 'mousedown', this.VNodeEvents[`${ctxevent}${index}`])
+          this.VNodeEvents[`${ctxevent}${index}`] = function mousedown (e) { self.handleMouseDown(e, index, vnode) }
+          // vnode[ctxevent] = this.VNodeEvents[`${ctxevent}${index}`]
+          on(getTarget(vnode.elm), 'mousedown', this.VNodeEvents[`${ctxevent}${index}`])
+        }
+      })
     }
   },
 
   render () {
-    const { getTarget } = this
+    const { moveDom } = this
     this.VNodes = this.$slots.default
     if (this.VNodes[0] && this.VNodes[0].tag && this.VNodes[0].tag.endsWith('transition-group')) {
       this.transition = true
@@ -208,38 +252,21 @@ export default {
     this.$nextTick(() => {
       // console.log(this.VNodes)
       if (!this.transition) {
-        this.VNodes.forEach((vnode, index) => {
-          if (vnode.elm) {
-            vnode[ctx] = vnode.elm.getBoundingClientRect().height
-            vnode[ctxmgt] = parseFloat(getCurrentStyle(vnode.elm, 'margin-top'))
-            vnode[ctxmgb] = parseFloat(getCurrentStyle(vnode.elm, 'margin-bottom'))
-            if (!vnode[ctxevent]) {
-              vnode[ctxevent] = (e) => { this.handleMouseDown(e, index, vnode) }
-              on(getTarget(vnode.elm), 'mousedown', vnode[ctxevent])
-            }
-          }
-        })
+        this.renderVnode(this.VNodes)
       } else {
-        this.VNodes[0].componentOptions.children.forEach((vnode, index) => {
-          if (vnode.elm) {
-            vnode[ctx] = vnode.elm.getBoundingClientRect().height
-            vnode[ctxmgt] = parseFloat(getCurrentStyle(vnode.elm, 'margin-top'))
-            vnode[ctxmgb] = parseFloat(getCurrentStyle(vnode.elm, 'margin-bottom'))
-            if (!vnode[ctxevent]) {
-              vnode[ctxevent] = (e) => { this.handleMouseDown(e, index, vnode) }
-              on(getTarget(vnode.elm), 'mousedown', vnode[ctxevent])
-            }
-          }
-        })
+        this.renderVnode(this.VNodes[0].componentOptions.children)
       }
     })
-    return (<div class="wsd-draggle">{this.VNodes}</div>)
+    return (<div class={['wsd-draggle', !!moveDom && 'is-moving']}>{this.VNodes}</div>)
   }
 }
 </script>
 <style lang="less">
 .wsd-draggle {
   position: relative;
+  &.is-moving {
+    user-select: none;
+  }
 }
 .wsd-moving-dom {
   position: absolute;
