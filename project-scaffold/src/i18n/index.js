@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import VueCookie from 'vue-cookie'
 import { WSD_LOCAL_LANGUAGE } from '@/config/cookies'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
 
 Vue.use(VueI18n)
 
@@ -17,6 +19,8 @@ messageNames.keys().forEach(key => {
 })
 
 const localLanguage = VueCookie.get(WSD_LOCAL_LANGUAGE) || 'zh-cn'
+
+moment.locale(localLanguage)
 
 const i18n = new VueI18n({
   messages,

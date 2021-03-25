@@ -1,9 +1,18 @@
 @import '../common/variable.less';
-.wsd-basic-list {
+.wsd-basic-list,
+.wsd-infinite-scroll-list {
   background-color: #fff;
+  .ant-list-item-meta-title {
+    margin-bottom: 8px;
+  }
+
   .wsd-basic-list__content {
     padding: 0 @--margin-basic-page @--margin-basic-page;
   }
+  .wsd-basic-list__description {
+    color: @--color-text;
+  }
+
   .wsd-basic-list__status {
     margin-bottom: @--margin-basic-row;
   }
@@ -12,5 +21,23 @@
     &.is-active {
       color: @--color-gold;
     }
+  }
+  .wsd-basic-list__other {
+    .wsd-basic-list__author {
+      color: @--color-auxiliary-text;
+    }
+    .wsd-basic-list__datetime {
+      color: @--color-auxiliary-text;
+    }
+  }
+}
+.wsd-infinite-scroll-list {
+  .wsd-scroll-list__container {
+    position: relative;
+    overflow: auto;
+    max-height: calc(100vh - 198px);
+  }
+  .wsd-basic-list__content {
+    padding: @--margin-basic-page;
   }
 }

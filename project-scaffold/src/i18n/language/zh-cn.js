@@ -100,6 +100,8 @@ export default {
   // 列表
   list: {
     upload: '上传明细',
-    download: '下载明细'
+    download: '下载明细',
+    collection: '我的收藏',
+    keyword_placeholder: '请输入标题/作者/标签'
   }
 }

@@ -9,7 +9,8 @@ export default {
       page: 1,
       pageSize: 10,
       type: 'upload',
-      status: ''
+      status: '',
+      keyword: ''
     }
   },
   getBasicListStatus: {
@@ -19,6 +20,17 @@ export default {
     data: {
       token: '',
       type: 'upload'
+    }
+  },
+  getInfiniteScrollList: {
+    url: '/list/infinite-scroll',
+    method: 'post',
+    description: '获取无限滚动列表数据',
+    data: {
+      token: '',
+      page: 1,
+      pageSize: 10,
+      keyword: ''
     }
   }
 }

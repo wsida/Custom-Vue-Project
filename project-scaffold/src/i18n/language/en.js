@@ -100,6 +100,8 @@ export default {
   // 列表
   list: {
     upload: 'Upload',
-    download: 'Download'
+    download: 'Download',
+    collection: 'Collection',
+    keyword_placeholder: 'input title/author/tag'
   }
 }
