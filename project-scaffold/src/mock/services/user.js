@@ -22,6 +22,7 @@ const _captcha = {}
 let _captchaInterval = null
 const PAGES_PERMIT = [
   'page:dashboard',
+  'page:workspace',
   'page:form',
   'page:form-basic',
   'page:form-complex',
@@ -34,6 +35,7 @@ const PAGES_PERMIT = [
 ]
 const MENUS_PERMIT = [
   'menu:dashboard',
+  'menu:workspace',
   'menu:form',
   'menu:form-basic',
   'menu:form-complex',
@@ -62,6 +64,7 @@ const _getUserInfo = function (options) {
         company: 'XXX Company',
         position: 'Web Front-end Engineer',
         description: 'a web front-end engineer',
+        createtime: '@datetime',
         funcs: [],
         pages: PAGES_PERMIT,
         menus: MENUS_PERMIT

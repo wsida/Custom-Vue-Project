@@ -15,6 +15,11 @@ export const GLOBAL_MENUS = (self) => ([
     path: '/dashboard',
     permitCode: 'menu:dashboard'
   }, {
+    title: self.$t('menu.workspace'),
+    icon: 'appstore', // iconClass 自定义图表类
+    path: '/workspace',
+    permitCode: 'menu:workspace'
+  }, {
     title: self.$t('menu.form'),
     icon: 'profile',
     path: '/form',

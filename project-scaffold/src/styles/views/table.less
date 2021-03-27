@@ -1,0 +1,31 @@
+@import '../common/variable.less';
+.wsd-basic-table {
+  .wsd-basic-table__count-item,
+  .wsd-basic-table__search,
+  .wsd-basic-table__content {
+    background: #fff;
+    padding: @--margin-basic-page;
+  }
+  .wsd-basic-table__count,
+  .wsd-basic-table__search {
+    margin-bottom: @--margin-basic-row;
+  }
+
+  .wsd-basic-table__count-item {
+    .wsd-basic-table__count-title {
+      font-size: @--font-size-basic-table-count-title;
+      color: @--color-basic-table-count-title;
+    }
+    .wsd-basic-table__count-value {
+      font-size: @--font-size-basic-table-count-value;
+      color: @--color-basic-table-count-value;
+    }
+  }
+  
+  .wsd-basic-table__buttons {
+    margin-bottom: @--margin-basic-row;
+    .ant-btn {
+      margin-right: @--margin-basic-col;
+    }
+  }
+}

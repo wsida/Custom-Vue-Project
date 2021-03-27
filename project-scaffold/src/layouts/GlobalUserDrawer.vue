@@ -105,6 +105,7 @@
             />
           </div>
         </div>
+        <!-- 排行 -->
         <div class="wsd-user-drawer__bodyRanking" v-if="resourceRanking.length">
           <div class="wsd-user-drawer__rankingTitle">
             {{$t('chart.resourceRanking')}}
@@ -120,6 +121,7 @@
               </div>
               <div class="wsd-user-drawer__rankingBar">
                 <a-progress
+                  status="active"
                   :percent="rank.ratio | toPercentage(1, 0)"
                   :show-info="false"
                 />

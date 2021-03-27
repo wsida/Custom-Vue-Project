@@ -2,6 +2,7 @@
 export default {
   // 菜单
   menu: {
+    workspace: '工作台',
     dashboard: '仪表盘',
     form: '表单',
     basicForm: '基础表单',
@@ -74,15 +75,40 @@ export default {
     modify_password_success_title: '密码修改成功！',
     modify_password_success_subtitle: '您可以使用新密码进行登录。',
     modify_password_error_title: '密码修改失败！',
-    modify_password_error_subtitle: '您可以返回上一步再试一次。'
+    modify_password_error_subtitle: '您可以返回上一步再试一次。',
+    month: '月',
+    year: '年'
   },
   options: {
+    unlimited: '不限',
     all: '全部',
+    others: '其他',
     passed: '已通过',
     audit: '待审核',
     failed: '未通过',
     private: '已私密',
-    public: '已公开'
+    public: '已公开',
+    unmounted: '已下架',
+    canceled: '已撤销',
+    // 下载方式
+    freeDownload: '免费下载',
+    vipDownload: 'VIP下载',
+    pointsDownload: '积分下载',
+    // 资源分类
+    development_class: '开发技术',
+    security_class: '安全技术',
+    security_network: '网络安全',
+    security_os: '系统安全',
+    os_class: '操作系统',
+    storage_class: '存储',
+    cloudComputing_class: '云计算',
+    bigData_class: '大数据',
+    mobileApplication_class: '移动应用',
+    gameDevelopment_class: '游戏开发',
+    artificial_class: '人工智能',
+    machineLearning: '机器学习',
+    deepLearning: '深度学习',
+    database_class: '数据库'
   },
   // 报表
   chart: {
@@ -103,5 +129,29 @@ export default {
     download: '下载明细',
     collection: '我的收藏',
     keyword_placeholder: '请输入标题/作者/标签'
+  },
+  // 表格
+  table: {
+    month: '月',
+    resourceName: '资源名称',
+    resourceLabel: '资源标签',
+    resourceClass: '所属类别',
+    resourceDescription: '资源描述',
+    downloadType: '下载方式',
+    status: '状态',
+    datetime: '上传时间',
+    actions: '操作'
+  },
+  dashboard: {
+    unit_ge: '个',
+    total_resources: '资源总数',
+    total_download: '下载次数',
+    total_likes: '点赞总数',
+    total_comments: '评论总数',
+    download_trend: '下载趋势',
+    resource_type_ratio: '类型占比',
+    resource_type_statistic: '类型统计',
+    download_ranking: '下载排行',
+    user_behavior: '用户行为'
   }
 }

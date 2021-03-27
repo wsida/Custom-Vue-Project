@@ -2,14 +2,14 @@ import Mock from 'mockjs2'
 import { builder, getBody } from '../utils'
 
 const INFINITE_SCROLL_LIST = Mock.mock({
-  'data|10-40': [
+  'data|80-200': [
     {
       'id|+1': 1,
       title: '@title',
       href: '@href',
       description: '@sentence',
       'fileType|1': ['pdf', 'image', 'markdown', 'ppt', 'text', 'word', 'unknown', 'zip'],
-      'status|1': ['0', '1', '2', '3'],
+      'status|1': ['0', '2', '3', '4'],
       'tags|1-3': ['@word'],
       author: '@name',
       class: '@word',
@@ -168,8 +168,28 @@ const __getInfiniteScrollList = (options) => {
   return builder({ code: '0', data: data }, 'success', 200)
 }
 
+// 获取无限滚动数据统计
+const __getInfiniteScrollListStatus = () => {
+  const data = [
+    {
+      type: '',
+      num: 0
+    }
+  ]
+  const options = ['0', '2', '3', '4']
+  data[0].num = INFINITE_SCROLL_LIST.length
+  options.forEach(option => {
+    data.push({
+      type: option,
+      num: INFINITE_SCROLL_LIST.filter(item => option === item.status).length || 0
+    })
+  })
+  return builder({ code: '0', data: data }, 'success', 200)
+}
+
 export default {
   'post /list/status': _getBasicListStatus,
   'post /list/basic': _getBasicList,
-  'post /list/infinite-scroll': __getInfiniteScrollList
+  'post /list/infinite-scroll': __getInfiniteScrollList,
+  'post /list/infinite-status': __getInfiniteScrollListStatus
 }

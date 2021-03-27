@@ -55,23 +55,47 @@ const _getTodayProfit = () => {
   return builder({ code: '0', data: data }, 'success', 200)
 }
 
-// 获取资源排行
+// 获取资源收益排行
 const _getResourceRanking = () => {
-  const data = Mock.mock({
-    'value|4': [
+  let data = Mock.mock({
+    'data|4': [
       {
         'id|+1': 1,
         name: '@word',
-        'profit|100-9999': 1,
-        'ratio|0-0.1-6': 1
+        'profit|100-9999': 1
       }
     ]
-  })
-  return builder({ code: '0', data: data.value }, 'success', 200)
+  }).data.sort((a, b) => (b.profit - a.profit))
+  const total = data.reduce((total, item) => (total += item.profit), 0) + parseInt(Math.random() * 400 + 100, 10)
+  data = data.map(item => ({ ...item, ratio: item.profit / total }))
+  return builder({ code: '0', data }, 'success', 200)
+}
+
+// 获取类型占比
+const _getResourceTypeRatio = () => {
+  const downloadType = ['0', '1', '2']
+  const data = downloadType.map(type => ({ type, value: parseInt(Math.random() * 200 + 50, 10) }))
+  return builder({ code: '0', data }, 'success', 200)
+}
+
+// 获取资源下载排行
+const _getDownloadRanking = () => {
+  const data = Mock.mock({
+    'data|5-10': [
+      {
+        'id|+1': 1,
+        name: '@word',
+        'count|20-300': 1
+      }
+    ]
+  }).data.sort((a, b) => (b.count - a.count))
+  return builder({ code: '0', data }, 'success', 200)
 }
 
 export default {
   'post /dashboard/todayVisits': _getTodayVisits,
   'post /dashboard/todayProfit': _getTodayProfit,
-  'post /dashboard/resourceRanking': _getResourceRanking
+  'post /dashboard/resourceRanking': _getResourceRanking,
+  'post /dashboard/resourceTypeRatio': _getResourceTypeRatio,
+  'post /dashboard/downloadRanking': _getDownloadRanking
 }

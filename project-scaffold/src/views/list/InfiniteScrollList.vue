@@ -2,6 +2,14 @@
   <div>
     <a-page-header :breadcrumb="{ props: { routes } }"/>
     <div class="wsd-infinite-scroll-list">
+      <!-- 标签页 -->
+      <a-tabs v-model="activeTab" @change="handleTabChange">
+        <a-tab-pane key="" :tab="$t('options.all') + `(${getCount('')})`"></a-tab-pane>
+        <a-tab-pane key="3" :tab="$t('options.public') + `(${getCount('3')})`"></a-tab-pane>
+        <a-tab-pane key="4" :tab="$t('options.private') + `(${getCount('4')})`"></a-tab-pane>
+        <a-tab-pane key="0" :tab="$t('options.audit') + `(${getCount('0')})`"></a-tab-pane>
+        <a-tab-pane key="2" :tab="$t('options.failed') + `(${getCount('2')})`"></a-tab-pane>
+      </a-tabs>
       <div class="wsd-basic-list__content">
         <a-spin :spinning="loading">
           <div class="wsd-basic-list__status">
@@ -79,6 +87,7 @@ export default {
           breadcrumbName: this.$t('menu.infiniteScrollList')
         }
       ],
+      activeTab: '',
       scrollDisabled: false, // 滚动禁用
       loading: false,
       list: [],
@@ -88,6 +97,7 @@ export default {
         pageSize: 15,
         total: 0
       },
+      statusCount: [], // 统计
       // 操作
       actions: [
         { type: 'star', key: 'like', self: 'selfLike' },
@@ -103,12 +113,30 @@ export default {
     })
   },
 
+  created () {
+    this.getInfiniteScrollListStatus()
+  },
+
   methods: {
+    // 获取统计数据
+    getCount (type) {
+      if (!this.statusCount || !Array.isArray(this.statusCount)) return 0
+      const count = this.statusCount.find(item => item.type === type)
+      return count ? count.num : 0
+    },
+
+    handleTabChange () {
+      this.scrollDisabled = false
+      this.list.splice(0, this.list.length)
+      this.getList(true)
+    },
+
     handleSearch () {
       this.scrollDisabled = false
       this.list.splice(0, this.list.length)
       this.getList(true)
     },
+
     // 查询列表
     getList (init) {
       if (this.scrollDisabled) return
@@ -118,6 +146,7 @@ export default {
       const params = {
         token: this.userInfo.token || '',
         page: this.pagination.current,
+        type: this.activeTab,
         pageSize: this.pagination.pageSize,
         keyword: this.keyword
       }
@@ -139,6 +168,18 @@ export default {
         }
       }).finally(_ => {
         this.loading = false
+      })
+    },
+
+    // 获取统计数据
+    getInfiniteScrollListStatus () {
+      const params = {
+        token: this.userInfo.token || ''
+      }
+      this.$api['list/getInfiniteScrollListStatus'](params).then(res => {
+        if (res.data && res.data.code === '0') {
+          this.statusCount = res.data.data
+        }
       })
     }
   }

@@ -169,6 +169,7 @@ export default {
     // 获取状态统计
     getBasicListStatus () {
       const params = {
+        token: this.userInfo.token || '',
         type: this.activeTab
       }
       this.$api['list/getBasicListStatus'](params).then(res => {

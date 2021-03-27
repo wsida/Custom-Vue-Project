@@ -10,12 +10,12 @@
       ></div>
       <!-- 处理结果 -->
       <div v-else class="wsd-component-chart__result">
-        <template v-if="isFailed">
+        <template v-if="isNoData">
           <slot name="noData">
             <div class="wsd-component-chart__resultTitle">{{$t('common.noData')}}</div>
           </slot>
         </template>
-        <template v-else-if="isNoData">
+        <template v-else-if="isFailed">
           <slot name="falied">
             <div class="wsd-component-chart__resultTitle">{{$t('common.failed')}}</div>
           </slot>

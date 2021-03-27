@@ -2,6 +2,7 @@
 export default {
   // 菜单
   menu: {
+    workspace: 'Workspace',
     dashboard: 'Dashboard',
     form: 'Form',
     basicForm: 'Basic form',
@@ -74,15 +75,40 @@ export default {
     modify_password_success_title: 'Password modified successfully!',
     modify_password_success_subtitle: 'You can sign in directly with your new password.',
     modify_password_error_title: 'Password modification failed!',
-    modify_password_error_subtitle: 'You can go back to the previous step to try again.'
+    modify_password_error_subtitle: 'You can go back to the previous step to try again.',
+    month: 'month',
+    year: 'year'
   },
   options: {
+    unlimited: 'Unlimited',
     all: 'All',
+    others: 'Others',
     passed: 'Passed',
     audit: 'Audit',
     failed: 'Failed',
     private: 'Private',
-    public: 'Public'
+    public: 'Public',
+    unmounted: 'Unmounted',
+    canceled: 'Canceled',
+    // 下载方式
+    freeDownload: 'Free Download',
+    vipDownload: 'VIP Download',
+    pointsDownload: 'Points Download',
+    // 资源分类
+    development_class: 'Development Technology',
+    security_class: 'Safety Technology',
+    security_network: 'Network Security',
+    security_os: 'OS Security',
+    os_class: 'OS',
+    storage_class: 'Storage',
+    cloudComputing_class: 'Cloud Computing',
+    bigData_class: 'Big Data',
+    mobileApplication_class: 'Mobile Applications',
+    gameDevelopment_class: 'Game Development',
+    artificial_class: 'Artificial Intelligence',
+    machineLearning: 'Machine Learning',
+    deepLearning: 'Deep Learning',
+    database_class: 'Database'
   },
   // 报表
   chart: {
@@ -103,5 +129,29 @@ export default {
     download: 'Download',
     collection: 'Collection',
     keyword_placeholder: 'input title/author/tag'
+  },
+  // 表格
+  table: {
+    month: 'th',
+    resourceName: 'Name',
+    resourceLabel: 'Label',
+    resourceClass: 'Class',
+    resourceDescription: 'Description',
+    downloadType: 'Download Type',
+    status: 'Status',
+    datetime: 'Datetime',
+    actions: 'Actions'
+  },
+  dashboard: {
+    unit_ge: '个',
+    total_resources: 'Total Resources',
+    total_download: 'Total Download',
+    total_likes: 'Total Likes',
+    total_comments: 'Total Comments',
+    download_trend: 'Download Trend',
+    resource_type_ratio: 'Type Ratio',
+    resource_type_statistic: 'Type Stastics',
+    download_ranking: 'Download Ranking',
+    user_behavior: 'User Behavior'
   }
 }

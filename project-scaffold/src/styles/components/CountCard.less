@@ -1,0 +1,60 @@
+@import '../common/mixins.less';
+@import '../common/variable.less';
+.wsd-count-card {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  padding: @--margin-count-card;
+  .wsd-flex();
+  &.is-align-top {
+    .is-align-top()
+  }
+  &.is-align-middle {
+    .is-align-middle()
+  }
+  &.is-align-bottom {
+    .is-align-bottom()
+  }
+  .wsd-count-card__icon {
+    .set-shrink(0);
+    margin-right: @--margin-count-card-icon;
+    width: 64px;
+    height: 64px;
+  }
+  .wsd-count-card__content {
+    .set-grow(1);
+    overflow: hidden;
+    &.is-large {
+      text-align: center;
+      .wsd-count-card__title {
+        font-size: 14px;
+      }
+      .wsd-count-card__value {
+        font-size: 22px;
+        .wsd-count-card__unit {
+          font-size: 14px;
+        }
+      }
+    }
+    .wsd-count-card__title {
+      font-size: 12px;
+      color: @--color-auxiliary-text;
+      // margin-bottom: 4px;
+      .wsd-ellipsis();
+    }
+    .wsd-count-card__value {
+      font-size: 18px;
+      color: @--color-title;
+      .wsd-ellipsis();
+      .wsd-count-card__unit {
+        font-size: 12px;
+        margin-left: 4px;
+        color: @--color-auxiliary-text;
+      }
+    }
+    .wsd-count-card__extra {
+      font-size: 13px;
+      color: @--color-text;
+    }
+  }
+}

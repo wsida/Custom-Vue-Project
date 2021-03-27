@@ -1,0 +1,35 @@
+@import '../common/mixins.less';
+@import '../common/variable.less';
+
+.wsd-simple-card {
+  position: relative;
+  background-color: #fff;
+  padding: @--margin-simple-card;
+  .wsd-simple-card__header {
+    .wsd-flex();
+    .is-align-middle();
+    margin-bottom: @--margin-simple-card-header;
+    .wsd-simple-card__title {
+      .set-grow(1);
+      .wsd-ellipsis();
+      font-size: 16px;
+      color: @--color-title;
+    }
+    .wsd-simple-card__extra {
+      .set-shrink(0);
+      font-size: 14px;
+      color: @--color-auxiliary-text;
+    }
+  }
+  .wsd-simple-card__body {
+    .wsd-simple-card__subTitle {
+      color: @--color-text;
+      font-size: 14px;
+      margin-bottom: @--margin-simple-card-subTitle;
+    }
+    .wsd-simple-card__content {
+      position: relative;
+      width: 100%;
+    }
+  }
+}

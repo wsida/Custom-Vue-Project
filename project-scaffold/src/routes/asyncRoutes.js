@@ -20,6 +20,13 @@ const ASYNC_ROUTES = [
       permitCode: 'page:dashboard'
     }
   }, {
+    path: '/workspace',
+    name: 'workspace',
+    component: () => import('@/views/workspace/Index'),
+    meta: {
+      permitCode: 'page:workspace'
+    }
+  }, {
     path: '/form',
     name: 'form',
     // redirect: 'form-basic', // 未配置component或者redirect 则自动设置第一个权限路由

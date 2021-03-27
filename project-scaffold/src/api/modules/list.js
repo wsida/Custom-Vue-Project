@@ -32,5 +32,13 @@ export default {
       pageSize: 10,
       keyword: ''
     }
+  },
+  getInfiniteScrollListStatus: {
+    url: '/list/infinite-status',
+    method: 'post',
+    description: '获取无限滚动列表数据统计',
+    data: {
+      token: ''
+    }
   }
 }

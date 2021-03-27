@@ -141,8 +141,10 @@ export default {
 
     // 点击菜单
     handleMenuItemClick ({ key }) {
-      this[SET_SELECTEDKEYS]([key])
-      this.$router.push(key)
+      if (this.selectedKeys.indexOf(key) === -1) {
+        this[SET_SELECTEDKEYS]([key])
+        this.$router.push(key)
+      }
     },
 
     // 展开submenu

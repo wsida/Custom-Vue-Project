@@ -26,7 +26,10 @@ modules.keys().forEach(m => {
             const _defaultData = Object.assign({}, isObject(apis[key].data) ? apis[key].data : {})
             Object.keys(_defaultData).forEach(dk => {
               if (_keys.indexOf(dk) !== -1) {
-                _data[dk] = data[dk] || _defaultData[dk] || undefined
+                // _data[dk] = data[dk] || _defaultData[dk] || undefined
+                _data[dk] = data[dk]
+              } else {
+                _data[dk] = undefined
               }
             })
           }

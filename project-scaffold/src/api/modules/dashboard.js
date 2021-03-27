@@ -23,5 +23,21 @@ export default {
     data: {
       token: ''
     }
+  },
+  downloadRanking: {
+    url: '/dashboard/downloadRanking',
+    method: 'post',
+    description: '获取资源下载排行',
+    data: {
+      token: ''
+    }
+  },
+  resourceTypeRatio: {
+    url: '/dashboard/resourceTypeRatio',
+    method: 'post',
+    description: '获取资源类型占比',
+    data: {
+      token: ''
+    }
   }
 }
