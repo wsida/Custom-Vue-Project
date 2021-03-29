@@ -149,7 +149,7 @@ export default {
     total_likes: '点赞总数',
     total_comments: '评论总数',
     download_trend: '下载趋势',
-    resource_type_ratio: '类型占比',
+    resource_type_ratio: '下载类型',
     resource_type_statistic: '类型统计',
     download_ranking: '下载排行',
     user_behavior: '用户行为'

@@ -2,42 +2,56 @@
 export default {
   todayVisits: {
     url: '/dashboard/todayVisits',
-    method: 'post',
+    method: 'get',
     description: '获取今日访问量',
-    data: {
-      token: ''
-    }
+    data: {}
   },
   todayProfit: {
     url: '/dashboard/todayProfit',
-    method: 'post',
+    method: 'get',
     description: '获取今日收益',
-    data: {
-      token: ''
-    }
+    data: {}
   },
   resourceRanking: {
     url: '/dashboard/resourceRanking',
-    method: 'post',
+    method: 'get',
     description: '获取资源排行',
-    data: {
-      token: ''
-    }
+    data: {}
   },
   downloadRanking: {
     url: '/dashboard/downloadRanking',
-    method: 'post',
+    method: 'get',
     description: '获取资源下载排行',
-    data: {
-      token: ''
-    }
+    data: {}
   },
   resourceTypeRatio: {
     url: '/dashboard/resourceTypeRatio',
-    method: 'post',
+    method: 'get',
     description: '获取资源类型占比',
-    data: {
-      token: ''
-    }
+    data: {}
+  },
+  totalStatistic: {
+    url: '/dashboard/totalStatistic',
+    method: 'get',
+    description: '获取总数统计数据',
+    data: {}
+  },
+  typeStastics: {
+    url: '/dashboard/typeStastics',
+    method: 'get',
+    description: '获取资源类型统计数据',
+    data: {}
+  },
+  downloadTrend: {
+    url: '/dashboard/downloadTrend',
+    method: 'get',
+    description: '获取下载趋势统计',
+    data: {}
+  },
+  userBehavior: {
+    url: '/dashboard/userBehavior',
+    method: 'get',
+    description: '获取用户行为趋势',
+    data: {}
   }
 }

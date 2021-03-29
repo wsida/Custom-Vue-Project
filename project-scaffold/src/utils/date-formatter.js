@@ -51,7 +51,7 @@ export const getDateTime = (date) => {
 export const addDate = (date, exp) => {
   if (!date) return date
   const datetime = getDateTime(date)
-  const type = exp.slice(-1, -2)
+  const type = exp.slice(-1)
   if (!exp || Object.keys(timeUnit).indexOf(type) === -1) return datetime
   return datetime + parseFloat(exp) * timeUnit[type]
 }
@@ -65,7 +65,7 @@ export const addDate = (date, exp) => {
 export const subDate = (date, exp) => {
   if (!date) return date
   const datetime = getDateTime(date)
-  const type = exp.slice(-1, -2)
+  const type = exp.slice(-1)
   if (!exp || Object.keys(timeUnit).indexOf(type) === -1) return datetime
   return Math.max(0, datetime - parseFloat(exp) * timeUnit[type])
 }

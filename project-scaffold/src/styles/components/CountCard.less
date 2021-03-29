@@ -19,7 +19,7 @@
     .set-shrink(0);
     margin-right: @--margin-count-card-icon;
     width: 64px;
-    height: 64px;
+    min-height: 64px;
   }
   .wsd-count-card__content {
     .set-grow(1);
@@ -55,6 +55,12 @@
     .wsd-count-card__extra {
       font-size: 13px;
       color: @--color-text;
+      .is-trend-up {
+        color: @error-color;
+      }
+      .is-trend-down {
+        color: @success-color;
+      }
     }
   }
 }

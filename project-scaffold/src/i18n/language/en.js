@@ -149,7 +149,7 @@ export default {
     total_likes: 'Total Likes',
     total_comments: 'Total Comments',
     download_trend: 'Download Trend',
-    resource_type_ratio: 'Type Ratio',
+    resource_type_ratio: 'Download Type',
     resource_type_statistic: 'Type Stastics',
     download_ranking: 'Download Ranking',
     user_behavior: 'User Behavior'

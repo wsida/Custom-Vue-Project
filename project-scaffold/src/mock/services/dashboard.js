@@ -1,14 +1,24 @@
 import Mock from 'mockjs2'
 import { builder } from '../utils'
 import { dateFormat, subDate } from '@/utils/date-formatter'
+import { labels } from './table'
 
 const _getPrevWeek = () => {
   const now = new Date()
-  const week = []
-  for (let i = 7; i > 0; i--) {
-    week.unshift(dateFormat(subDate(now, `${7 - i}d`), 'MM-dd'))
+  const week = [dateFormat(now, 'MM-dd')]
+  for (let i = 1; i <= 6; i++) {
+    week.unshift(dateFormat(subDate(now, `${i}d`), 'MM-dd'))
   }
   return week
+}
+
+const _getPrev30Days = () => {
+  const now = new Date()
+  const days = [dateFormat(now, 'MM-dd')]
+  for (let i = 1; i <= 29; i++) {
+    days.unshift(dateFormat(subDate(now, `${i}d`), 'MM-dd'))
+  }
+  return days
 }
 
 // 获取今日访问量
@@ -81,7 +91,7 @@ const _getResourceTypeRatio = () => {
 // 获取资源下载排行
 const _getDownloadRanking = () => {
   const data = Mock.mock({
-    'data|5-10': [
+    'data|10': [
       {
         'id|+1': 1,
         name: '@word',
@@ -92,10 +102,87 @@ const _getDownloadRanking = () => {
   return builder({ code: '0', data }, 'success', 200)
 }
 
+const _getTotalStatistic = () => {
+  const week = _getPrevWeek()
+  const data = {
+    totalResources: parseInt(Math.random() * 400 + 200, 10),
+    // totalDownload: parseInt(Math.random() * 500 + 40, 10),
+    // totalLikes: parseInt(Math.random() * 500 + 60, 10),
+    // totalComments: parseInt(Math.random() * 500 + 50, 10),
+    weekDownload: week.map(w => ({
+      name: w,
+      value: parseInt(Math.random() * 500 + 40, 10)
+    })),
+    weekLikes: week.map(w => ({
+      name: w,
+      value: parseInt(Math.random() * 500 + 60, 10)
+    })),
+    weekComments: week.map(w => ({
+      name: w,
+      value: parseInt(Math.random() * 500 + 50, 10)
+    }))
+  }
+  return builder({ code: '0', data }, 'success', 200)
+}
+
+const _getTypeStastics = () => {
+  const data = labels.map(label => ({
+    name: label,
+    value: parseInt(Math.random() * 100)
+  }))
+  return builder({ code: '0', data }, 'success', 200)
+}
+
+const _getDownloadTrend = () => {
+  const data = _getPrev30Days().map(day => ({
+    name: day,
+    value: parseInt(Math.random() * 200, 10)
+  }))
+  return builder({ code: '0', data }, 'success', 200)
+}
+
+const _getUserBehavior = () => {
+  const days = _getPrev30Days()
+  const data = [
+    {
+      name: 'likes',
+      data: []
+    },
+    {
+      name: 'comments',
+      data: []
+    }
+  ]
+  days.forEach(day => {
+    let likeUser = parseInt(Math.random() * 30, 10)
+    let commentUser = parseInt(Math.random() * 20 + 5, 10)
+    while (likeUser > 0) {
+      data[0].data.push({
+        name: day,
+        value: parseInt(Math.random() * 300 + 10, 10)
+      })
+      likeUser--
+    }
+
+    while (commentUser > 0) {
+      data[1].data.push({
+        name: day,
+        value: parseInt(Math.random() * 200, 10)
+      })
+      commentUser--
+    }
+  })
+  return builder({ code: '0', data }, 'success', 200)
+}
+
 export default {
-  'post /dashboard/todayVisits': _getTodayVisits,
-  'post /dashboard/todayProfit': _getTodayProfit,
-  'post /dashboard/resourceRanking': _getResourceRanking,
-  'post /dashboard/resourceTypeRatio': _getResourceTypeRatio,
-  'post /dashboard/downloadRanking': _getDownloadRanking
+  'get /dashboard/todayVisits': _getTodayVisits,
+  'get /dashboard/todayProfit': _getTodayProfit,
+  'get /dashboard/resourceRanking': _getResourceRanking,
+  'get /dashboard/resourceTypeRatio': _getResourceTypeRatio,
+  'get /dashboard/downloadRanking': _getDownloadRanking,
+  'get /dashboard/totalStatistic': _getTotalStatistic,
+  'get /dashboard/typeStastics': _getTypeStastics,
+  'get /dashboard/downloadTrend': _getDownloadTrend,
+  'get /dashboard/userBehavior': _getUserBehavior
 }

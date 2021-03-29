@@ -2,6 +2,13 @@ import Mock from 'mockjs2'
 import { builder, getBody } from '../utils'
 import { RESOURCE_CLASS } from './public'
 
+export const labels = [
+  'Vuex', 'Redux', 'Vue-cli3', 'Webpack',
+  'Nodejs', 'Rect', 'Angular', 'Vue-router', 'Axios',
+  'Fetch', 'Vue', 'HTML', 'HTML5', 'javascript', 'Java',
+  'C#', 'C++', 'Paython', '人工智能', 'MySQL', '大数据',
+  '网络安全', '机器学校', 'C'
+]
 const downloadType = ['0', '1', '2']
 const status = ['0', '1', '2', '3', '4']
 const resourceClass = []
@@ -17,7 +24,7 @@ const BASIC_TABLE_DATA = Mock.mock({
     {
       'id|+1': 1,
       name: '@word',
-      'label|1-5': ['@word'],
+      'label|1-5': labels,
       'classic|1': resourceClass,
       'downloadType|1': downloadType,
       description: '@sentence',
