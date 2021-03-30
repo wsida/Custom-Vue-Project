@@ -79,6 +79,13 @@ export default {
     month: '月',
     year: '年'
   },
+  operate: {
+    publish: '发布文章',
+    upload: '上传资源',
+    resources: '我的资源',
+    information: '我的资料',
+    modifyPassword: '修改密码'
+  },
   options: {
     unlimited: '不限',
     all: '全部',

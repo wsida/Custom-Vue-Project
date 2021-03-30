@@ -2,7 +2,7 @@
 <template>
   <div :class="['wsd-register-form', currentStep === 2 && 'is-block']">
     <div class="wsd-register-form__title">
-      <a-avatar :size="36" :src="logo"></a-avatar>
+      <svg-icon icon-class="logo"></svg-icon>
       <span>WSD - </span>
       <span class="is-strong">{{$t('common.register')}}</span>
     </div>
@@ -185,7 +185,6 @@
 </template>
 
 <script>
-import logo from '@/assets/logo.svg'
 import { encrypt } from '@/utils/aes'
 const DEFAULT_RESULT = (self) => ({
   success: {
@@ -214,7 +213,6 @@ export default {
     }
 
     return {
-      logo,
       DEFAULT_RESULT: DEFAULT_RESULT(this),
       // 登录模式
       currentStep: 0,

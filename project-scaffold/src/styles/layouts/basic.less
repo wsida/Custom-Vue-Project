@@ -541,6 +541,35 @@
               }
             }
           }
+          .wsd-user-drawer__entrances {
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            .wsd-user-drawer__entranceItem {
+              position: relative;
+              width: 25%;
+              padding: 4px 6px;
+              .wsd-user-drawer__entranceIcon {
+                text-align: center;
+                .is-icon {
+                  width: 85%;
+                  max-width: 32px;
+                  max-height: 36px;
+                }
+              }
+              .wsd-user-drawer__entranceTitle {
+                font-size: 12px;
+                text-align: center;
+                line-height: 16px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: @--color-text;
+              }
+            }
+          }
         }
         .wsd-user-drawer__bodyRanking {
           position: relative;

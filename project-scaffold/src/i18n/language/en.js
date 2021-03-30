@@ -79,6 +79,13 @@ export default {
     month: 'month',
     year: 'year'
   },
+  operate: {
+    publish: 'Publish',
+    upload: 'Upload',
+    resources: 'My resources',
+    information: 'Information',
+    modifyPassword: 'Modify Password'
+  },
   options: {
     unlimited: 'Unlimited',
     all: 'All',
@@ -143,7 +150,7 @@ export default {
     actions: 'Actions'
   },
   dashboard: {
-    unit_ge: '个',
+    unit_ge: '',
     total_resources: 'Total Resources',
     total_download: 'Total Download',
     total_likes: 'Total Likes',

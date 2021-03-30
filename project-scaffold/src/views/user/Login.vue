@@ -2,7 +2,7 @@
 <template>
   <div class="wsd-login-form">
     <div class="wsd-login-form__title">
-      <a-avatar :size="36" :src="logo"></a-avatar>
+      <svg-icon icon-class="logo"></svg-icon>
       <span>WSD - </span>
       <span class="is-strong">{{$t('common.login')}}</span>
     </div>
@@ -138,7 +138,6 @@
 </template>
 
 <script>
-import logo from '@/assets/logo.svg'
 import { encrypt } from '@/utils/aes'
 import VueCookie from 'vue-cookie'
 import {
@@ -149,7 +148,6 @@ export default {
   name: 'Login',
   data () {
     return {
-      logo,
       // 登录模式
       mode: 'account', // 'captcha‘
       telphonePrefix: '+86',

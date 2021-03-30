@@ -6,6 +6,7 @@ import router from './plugins/router'
 import $api from './api'
 import axios from './plugins/axios'
 import Antd from 'ant-design-vue'
+import './svg' // svg-icon
 import './styles/index.less'
 
 // mock 接口数据模拟

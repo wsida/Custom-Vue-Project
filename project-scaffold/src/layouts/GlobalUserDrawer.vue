@@ -60,6 +60,22 @@
       </div>
       <!-- 主要内容 -->
       <div class="wsd-user-drawer__body">
+        <!-- 广告牌 -->
+        <!-- 快速入口 -->
+        <div class="wsd-user-drawer__bodyChart">
+          <div class="wsd-user-drawer__entrances">
+            <div
+              v-for="(entrance, index) in entrances"
+              :key="index"
+              class="wsd-user-drawer__entranceItem"
+            >
+              <div class="wsd-user-drawer__entranceIcon">
+                <svg-icon :icon-class="entrance.ico" class-name="is-icon"></svg-icon>
+              </div>
+              <div class="wsd-user-drawer__entranceTitle">{{ entrance.title }}</div>
+            </div>
+          </div>
+        </div>
         <!-- 今日访问量 -->
         <div class="wsd-user-drawer__bodyChart is-primary">
           <div class="wsd-user-drawer__title">
@@ -161,6 +177,33 @@ export default {
 
   data () {
     return {
+      entrances: [
+        {
+          ico: 'users-1',
+          title: this.$t('operate.publish'),
+          path: ''
+        },
+        {
+          ico: 'users-2',
+          title: this.$t('operate.upload'),
+          path: ''
+        },
+        {
+          ico: 'users-3',
+          title: this.$t('operate.resources'),
+          path: ''
+        },
+        {
+          ico: 'users-4',
+          title: this.$t('operate.information'),
+          path: ''
+        },
+        {
+          ico: 'users-5',
+          title: this.$t('operate.modifyPassword'),
+          path: ''
+        }
+      ],
       // 图表
       // 今日访问量
       todayVisits: {

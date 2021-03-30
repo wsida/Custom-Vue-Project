@@ -3,7 +3,7 @@
     <span class="wsd-header-left">
       <!-- 产品 -->
       <span class="wsd-header__product">
-        <a-avatar :size="40" :src="logo"></a-avatar>
+        <svg-icon icon-class="logo"></svg-icon>
         <span class="wsd-header__title">
           WSD
         </span>
@@ -83,7 +83,6 @@
 
 <script>
 // import logo from '@/assets/logo.png'
-import logo from '@/assets/logo.svg'
 import GlobalUserDrawer from './GlobalUserDrawer'
 import { LOCAL_LANGUAGES } from '@/i18n'
 import VueCookie from 'vue-cookie'
@@ -96,7 +95,6 @@ export default {
   },
   data () {
     return {
-      logo,
       lang: VueCookie.get(WSD_LOCAL_LANGUAGE) || 'zh-cn',
       languages: LOCAL_LANGUAGES,
       // 用户详情弹窗
