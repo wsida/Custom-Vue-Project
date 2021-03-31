@@ -58,6 +58,9 @@
     overflow: hidden;
     .wsd-flex();
     .is-align-middle();
+    .wsd-header__logo {
+      font-size: 36px;
+    }
     .wsd-header__title {
       padding: 0 12px;
       color: @primary-color;
@@ -551,12 +554,19 @@
               position: relative;
               width: 25%;
               padding: 4px 6px;
+              cursor: pointer;
+              &:hover {
+                .wsd-user-drawer__entranceIcon,
+                .wsd-user-drawer__entranceTitle {
+                  fill: @--color-primary;
+                  color: @--color-primary;
+                }
+              }
               .wsd-user-drawer__entranceIcon {
                 text-align: center;
                 .is-icon {
-                  width: 85%;
-                  max-width: 32px;
-                  max-height: 36px;
+                  font-size: 48px;
+                  margin-bottom: 4px;
                 }
               }
               .wsd-user-drawer__entranceTitle {

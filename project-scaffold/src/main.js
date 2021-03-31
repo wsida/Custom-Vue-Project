@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
-import store from './store' // 全局状态树
-import i18n from './i18n' // 多语言
-import router from './plugins/router'
-import $api from './api'
-import axios from './plugins/axios'
+import store from '@/store' // 全局状态树
+import i18n from '@/i18n' // 多语言
+import router from '@/plugins/router'
+import $api from '@/api'
+import axios from '@/plugins/axios'
 import Antd from 'ant-design-vue'
-import './svg' // svg-icon
-import './styles/index.less'
+import '@/icons' // svg-icon
+import '@/styles/index.less'
 
 // mock 接口数据模拟
-import './mock'
+import '@/mock'
 
 // 使用插件
 Vue.use(Antd)

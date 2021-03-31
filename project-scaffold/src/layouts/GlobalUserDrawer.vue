@@ -202,6 +202,21 @@ export default {
           ico: 'users-5',
           title: this.$t('operate.modifyPassword'),
           path: ''
+        },
+        {
+          ico: 'users-6',
+          title: this.$t('operate.modifyPassword'),
+          path: ''
+        },
+        {
+          ico: 'users-7',
+          title: this.$t('operate.modifyPassword'),
+          path: ''
+        },
+        {
+          ico: 'users-8',
+          title: this.$t('operate.modifyPassword'),
+          path: ''
         }
       ],
       // 图表

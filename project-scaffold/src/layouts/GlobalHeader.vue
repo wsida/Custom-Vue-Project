@@ -3,7 +3,7 @@
     <span class="wsd-header-left">
       <!-- 产品 -->
       <span class="wsd-header__product">
-        <svg-icon icon-class="logo"></svg-icon>
+        <svg-icon icon-class="logo" class-name="wsd-header__logo"></svg-icon>
         <span class="wsd-header__title">
           WSD
         </span>
