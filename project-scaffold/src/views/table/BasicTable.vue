@@ -1,62 +1,10 @@
 <template>
   <div class="wsd-basic-table">
+    <a-page-header :breadcrumb="{ props: { routes } }"/>
     <!-- statistic -->
-    <div class="wsd-basic-table__count">
-      <a-row :gutter="16">
-        <a-col v-for="item in statusCount" :key="item.type" :span="4">
-          <div class="wsd-basic-table__count-item">
-            <div class="wsd-basic-table__count-title">{{ item.name }}</div>
-            <div class="wsd-basic-table__count-value">{{ item.num | toThousand }}</div>
-          </div>
-        </a-col>
-      </a-row>
-    </div>
+    <basic-table-statistics></basic-table-statistics>
     <!-- search -->
-    <div class="wsd-basic-table__search">
-      <a-form
-        layout="inline"
-        :form="searchForm"
-      >
-        <a-form-item>
-          <a-select
-            style="width: 100px"
-            v-model="searchForm.year"
-            :title="$t('common.year')"
-            :placeholder="$t('common.year')"
-            :options="yearOptions"
-          ></a-select>
-        </a-form-item>
-        <a-form-item>
-          <a-select
-            style="width: 100px"
-            v-model="searchForm.month"
-            :title="$t('common.month')"
-            :placeholder="$t('common.month')"
-            :options="monthOptions"
-          ></a-select>
-        </a-form-item>
-        <a-form-item>
-          <a-input
-            v-model="searchForm.name"
-            allowClear
-            :placeholder="$t('table.resourceName')"
-            @keyup.enter="handleSearch"
-          />
-        </a-form-item>
-        <a-form-item>
-          <a-button
-            type="primary"
-            @click="handleSearch"
-          >搜索</a-button>
-        </a-form-item>
-        <a-form-item>
-          <a-button
-            :loading="loading"
-            @click="handleReset"
-          >重置</a-button>
-        </a-form-item>
-      </a-form>
-    </div>
+    <basic-table-search ref="search" :loading="loading"></basic-table-search>
     <!-- table -->
     <div class="wsd-basic-table__content">
       <div class="wsd-basic-table__buttons">
@@ -130,14 +78,34 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import BasicTableStatistics from './components/BasicTableStatistics'
+import BasicTableSearch from './components/BasicTableSearch'
 import { GET_RESOURCE_CLASS } from '@/store/types'
 import { mapState, mapActions } from 'vuex'
 import { toThousand } from '@/utils/formatter'
-import axios from 'axios'
+const eventBus = new Vue()
 export default {
   name: 'BasicTable',
+  components: {
+    BasicTableStatistics,
+    BasicTableSearch
+  },
+
+  provide () {
+    return {
+      eventBus: eventBus
+    }
+  },
+
   data () {
     return {
+      routes: [
+        {
+          path: '/table-basic',
+          breadcrumbName: this.$t('menu.basicTable')
+        }
+      ],
       loading: false,
       // 表格数据
       tableData: [],
@@ -155,45 +123,6 @@ export default {
       // 选择
       selectedRowKeys: [],
       selectedRows: [],
-      // 查询
-      searchForm: {
-        year: '',
-        month: '',
-        name: ''
-      },
-      // 统计
-      statusCount: [
-        {
-          name: this.$t('options.all'),
-          type: '',
-          num: 0
-        },
-        {
-          name: this.$t('options.audit'),
-          type: '0',
-          num: 0
-        },
-        {
-          name: this.$t('options.passed'),
-          type: '1',
-          num: 0
-        },
-        {
-          name: this.$t('options.failed'),
-          type: '2',
-          num: 0
-        },
-        {
-          name: this.$t('options.unmounted'),
-          type: '3',
-          num: 0
-        },
-        {
-          name: this.$t('options.canceled'),
-          type: '4',
-          num: 0
-        }
-      ],
       // 状态颜色映射
       colors: ['blue', 'green', 'red', '', 'orange']
     }
@@ -268,43 +197,6 @@ export default {
       return columns
     },
 
-    // 年份选择
-    yearOptions () {
-      const options = [
-        {
-          label: this.$t('options.unlimited'),
-          value: ''
-        }
-      ]
-      const createtime = new Date(this.userInfo.createtime)
-      for (let i = new Date().getFullYear(); i > createtime.getFullYear(); i--) {
-        options.push({
-          label: i,
-          value: i
-        })
-      }
-      return options
-    },
-
-    // 月份选择
-    monthOptions () {
-      const options = [
-        {
-          label: this.$t('options.unlimited'),
-          value: ''
-        }
-      ]
-      if (this.searchForm.year) {
-        for (let i = 1; i <= 12; i++) {
-          options.push({
-            label: i + this.$t('table.month'),
-            value: i
-          })
-        }
-      }
-      return options
-    },
-
     // 表格选择
     rowSelection () {
       return {
@@ -360,42 +252,21 @@ export default {
     }
   },
 
-  watch: {
-    'searchForm.year' (newVal) {
-      if (!newVal) {
-        this.searchForm.month = ''
-      }
-    }
-  },
-
   created () {
-    axios.all([
-      this[GET_RESOURCE_CLASS](),
-      this.getBasicTableDataStatus(),
-      this.getData(true)
-    ])
+    this[GET_RESOURCE_CLASS]()
     // .then(axios.spread(() => {
     //   console.log('success')
     // }))
   },
 
-  methods: {
-    // 获取统计
-    getBasicTableDataStatus () {
-      this.$api['table/getBasicTableDataStatus']().then(res => {
-        if (res.data && res.data.code === '0') {
-          const resData = res.data.data
-          this.statusCount = this.statusCount.map(item => {
-            const cItem = resData.find(c => c.type === item.type)
-            item.num = cItem ? cItem.num : 0
-            return item
-          })
-        }
-      })
-    },
+  mounted () {
+    eventBus.$on('search', this.getData)
+    eventBus.$emit('refresh', true)
+  },
 
+  methods: {
     // 获取表格数据
-    getData (init) {
+    getData (searchForm, init) {
       if (init) {
         this.pagination.current = 1
         this.filteredInfos = null
@@ -406,7 +277,7 @@ export default {
         token: this.userInfo.token,
         page: this.pagination.current,
         pageSize: this.pagination.pageSize,
-        ...this.searchForm
+        ...searchForm
       }
 
       this.loading = true
@@ -427,23 +298,10 @@ export default {
       if (pagination.current !== this.pagination.current || pagination.pageSize !== this.pagination.pageSize) {
         this.pagination.current = pagination.current
         this.pagination.pageSize = pagination.pageSize
-        this.getData()
+        eventBus.$emit('refresh')
       }
       this.filteredInfos = filters
       this.sorterInfos = sorter
-    },
-
-    // 搜索
-    handleSearch () {
-      this.getData(true)
-    },
-
-    // 重置
-    handleReset () {
-      this.$set(this.searchForm, 'year', '')
-      this.$set(this.searchForm, 'month', '')
-      this.$set(this.searchForm, 'name', '')
-      this.getData(true)
     },
 
     // 选择

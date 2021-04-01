@@ -9,6 +9,16 @@ export const labels = [
   'C#', 'C++', 'Paython', '人工智能', 'MySQL', '大数据',
   '网络安全', '机器学校', 'C'
 ]
+
+const getLabels = () => {
+  let num = parseInt(Math.random() * 4) + 1
+  const result = []
+  while (num > 0) {
+    num--
+    result.push(labels[parseInt(Math.random() * labels.length)])
+  }
+  return result
+}
 const downloadType = ['0', '1', '2']
 const status = ['0', '1', '2', '3', '4']
 const resourceClass = []
@@ -24,7 +34,7 @@ const BASIC_TABLE_DATA = Mock.mock({
     {
       'id|+1': 1,
       name: '@word',
-      'label|1-5': labels,
+      label: getLabels,
       'classic|1': resourceClass,
       'downloadType|1': downloadType,
       description: '@sentence',

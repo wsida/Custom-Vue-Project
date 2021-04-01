@@ -1,5 +1,6 @@
 <template>
   <div class="wsd-dashboard">
+    <!-- <a-page-header :breadcrumb="{ props: { routes } }"/> -->
     <a-row :gutter="16" class="wsd-dashboard-row">
       <!-- left -->
       <a-col :span="18">
@@ -44,6 +45,16 @@ export default {
   provide () {
     return {
       parent: this
+    }
+  },
+  data () {
+    return {
+      routes: [
+        {
+          path: '/dashboard',
+          breadcrumbName: this.$t('menu.dashboard')
+        }
+      ]
     }
   }
 }
