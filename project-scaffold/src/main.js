@@ -6,6 +6,7 @@ import router from '@/plugins/router'
 import $api from '@/api'
 import axios from '@/plugins/axios'
 import Antd from 'ant-design-vue'
+import PageScrollable from '@/components/pageScrollable'
 import '@/icons' // svg-icon
 import '@/styles/index.less'
 
@@ -14,6 +15,7 @@ import '@/mock'
 
 // 使用插件
 Vue.use(Antd)
+Vue.use(PageScrollable)
 Vue.config.productionTip = false
 
 // 添加实例方法
