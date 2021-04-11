@@ -10,6 +10,7 @@
       <a-form
         :form="form"
         layout="vertical"
+        @keyup.native.enter="handleSubmit"
       >
         <!-- 切换登录方式 -->
         <a-tabs v-model="mode" @change="handleSwitchMode">

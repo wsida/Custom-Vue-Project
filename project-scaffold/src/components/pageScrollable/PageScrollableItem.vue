@@ -7,7 +7,7 @@
 <script>
 let id = 1
 export default {
-  name: 'ScrollableItem',
+  name: 'PageScrollableItem',
   inject: ['parent'],
   data () {
     return {

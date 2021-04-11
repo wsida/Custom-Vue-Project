@@ -2,7 +2,7 @@
 const DIRECTION = ['horizontal', 'vertical']
 const WIDTH_VALID = (val) => (/^[1-9][0-9]*(em|rem|px|rpx|%)?$/.test(val))
 export default {
-  name: 'Scrollable',
+  name: 'PageScrollable',
   props: {
     direction: {
       type: String,

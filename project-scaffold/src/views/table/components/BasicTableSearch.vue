@@ -8,8 +8,8 @@
         <a-select
           style="width: 100px"
           v-model="searchForm.year"
-          :title="$t('common.year')"
-          :placeholder="$t('common.year')"
+          :title="$t('date.year')"
+          :placeholder="$t('date.year')"
           :options="yearOptions"
         ></a-select>
       </a-form-item>
@@ -17,8 +17,8 @@
         <a-select
           style="width: 100px"
           v-model="searchForm.month"
-          :title="$t('common.month')"
-          :placeholder="$t('common.month')"
+          :title="$t('date.month')"
+          :placeholder="$t('date.month')"
           :options="monthOptions"
         ></a-select>
       </a-form-item>

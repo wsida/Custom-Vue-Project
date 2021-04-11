@@ -1,4 +1,5 @@
 @import '../common/variable.less';
+@import '../common/mixins.less';
 .wsd-workspace {
   .wsd-workspace__calendar {
     // background-color: #fff;
@@ -8,6 +9,108 @@
     }
     .ant-fullcalendar-calendar-body {
       background-color: #fff;
+    }
+
+    .ant-fullcalendar-cell {
+      padding: 0;
+    }
+
+    .wsd-date-render {
+      display: block;
+      height: 132px;
+      margin: 0 4px;
+      padding: 0;
+      border-top: 2px solid lighten(@--color-border, 5%);
+
+      &:hover {
+        border-top-color: lighten(@primary-color, 3%);
+      }
+
+      &:active {
+        border-top-color: darken(@primary-color, 3%);
+      }
+    }
+
+    .ant-fullcalendar-selected-day {
+      .wsd-date-render {
+        border-top-color: @primary-color;
+        .is-value {
+          color: @primary-color;
+        }
+      }
+    }
+
+    .ant-fullcalendar-today {
+      .wsd-date-render {
+        // border-top-color: @primary-color;
+        .is-value {
+          display: inline-block;
+          width: 28px;
+          height: 28px;
+          text-align: center;
+          line-height: 28px;
+          border-radius: 14px;
+          color: #fff;
+          background-color: @primary-color;
+        }
+      }
+    }
+
+    .ant-fullcalendar-value {
+      padding: 4px 8px;
+      height: 36px;
+      line-height: 28px;
+    }
+    
+    .ant-fullcalendar-content {
+      height: 96px;
+    }
+
+    .wsd-workspace__toolbox {
+      margin-bottom: @--margin-basic-row;
+      .is-margin-right {
+        margin-right: @--margin-basic-col;
+      }
+    }
+
+    .wsd-scrollable-item {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+
+    .wsd-workspace__remind {
+      font-size: 12px;
+      line-height: 15px;
+      padding: 4px 8px;
+      .wsd-ellipsis();
+      &::before {
+        content: '';
+        display: inline-block;
+        margin-right: 4px;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+      }
+      
+      &.is-selected {
+        background-color: lighten(@primary-color, 23%);
+      }
+
+      &.is-finish {
+        &::before {
+          background-color: @--color-grey;
+        }
+      }
+      &.is-active {
+        &::before {
+          background-color: @primary-color;
+        }
+      }
+      &.is-await {
+        &::before {
+          background-color: @--color-blue;
+        }
+      }
     }
   }
 }
