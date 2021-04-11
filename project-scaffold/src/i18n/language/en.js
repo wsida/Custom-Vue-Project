@@ -6,13 +6,19 @@ export default {
     dashboard: 'Dashboard',
     form: 'Form',
     basicForm: 'Basic form',
+    stepForm: 'Step form',
     complexForm: 'Complex form',
-    table: 'Table',
-    basicTable: 'Basic table',
-    complexTable: 'Complex table',
+    searchTable: 'Search table',
     list: 'List',
-    basicList: 'Basic list',
-    infiniteScrollList: 'Infinite scroll list'
+    searchList: 'Basic list',
+    infiniteScrollList: 'Infinite scroll list',
+    detail: 'Detail',
+    basicDetail: 'Basic detail',
+    complexDetail: 'Complex detail',
+    error: 'Error',
+    error404: '404',
+    error403: '403',
+    error500: '500'
   },
   // 通用
   common: {
@@ -34,6 +40,7 @@ export default {
     formatError: 'Format error',
     nextStep: 'Next step',
     prevStep: 'Prev step',
+    submit: 'Submit',
     login: 'Login',
     register: 'Register',
     registerNow: 'register now!',
@@ -140,7 +147,15 @@ export default {
     artificial_class: 'Artificial Intelligence',
     machineLearning: 'Machine Learning',
     deepLearning: 'Deep Learning',
-    database_class: 'Database'
+    database_class: 'Database',
+    bank_zs: 'China Merchants Bank',
+    bank_xy: 'China Industrial Bank',
+    bank_js: 'China Construction Bank',
+    bank_gs: 'China Industrial and Commercial Bank',
+    bank_qz: 'China Quanzhou Bank',
+    bank_xm: 'China Xiamen Bank',
+    bank_ny: 'China Agricultural Bank',
+    bank_xys: 'Rural Credit Cooperatives'
   },
   // 报表
   chart: {
@@ -174,6 +189,7 @@ export default {
     datetime: 'Datetime',
     actions: 'Actions'
   },
+  // 仪表盘
   dashboard: {
     unit_ge: '',
     total_resources: 'Total Resources',
@@ -185,5 +201,26 @@ export default {
     resource_type_statistic: 'Type Stastics',
     download_ranking: 'Download Ranking',
     user_behavior: 'User Behavior'
+  },
+  // 表单
+  form: {
+    uploadTips: 'Click to upload file(s)!',
+    inputInfos: 'Input account information',
+    confirmInfos: 'Confirm account information',
+    result: 'Operation result',
+    payee: 'Payee Information',
+    pay: 'Pay Information',
+    accountName: 'Account name',
+    account: 'Account number',
+    bank: 'Bank',
+    amount: 'Amount',
+    payAccount: 'Pay account',
+    remark: 'Remark',
+    cardPassword: 'Bank card password',
+    again: 'Try again',
+    exit: 'View records',
+    titleSuccess: 'Operation Successful',
+    subTitleSuccess: 'Expected to arrive in two hours, please note receipt',
+    submitTips: 'Please check the information of the payee and the amount of the transfer. The transfer cannot be cancelled after confirmation!'
   }
 }

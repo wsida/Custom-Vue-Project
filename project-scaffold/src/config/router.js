@@ -11,6 +11,9 @@ import {
 import {
   GET_USER_INFO
 } from '@/store/types'
+import {
+  PERMIT_ROUTE_OPEN
+} from './index'
 
 const WHITE_ROUTES = [] // 必须指定路由名称
 // 获取静态路由名称
@@ -24,6 +27,7 @@ const loopWhiteRoutes = (routes) => {
 }
 loopWhiteRoutes(staticRoutes)
 
+// 路由基础配置
 export const BASE_CONFIG = {
   mode: 'hash',
   base: '/',
@@ -32,6 +36,7 @@ export const BASE_CONFIG = {
   }
 }
 
+// 全局前置路由守卫
 export async function beforeEach (to, from, next) {
   NProgress.start()
   next()
@@ -49,7 +54,7 @@ export async function beforeEach (to, from, next) {
         } else {
           // 目前只有加载所有路由 - 利用权限码判断
           // 菜单权限判断
-          if (to.meta && to.meta.permitCode && store.getters.hasPagePermit(to.meta.permitCode)) {
+          if (!PERMIT_ROUTE_OPEN || (to.meta && to.meta.permitCode && store.getters.hasPagePermit(to.meta.permitCode))) {
             next()
           } else {
             next({ name: '403' })
@@ -62,7 +67,7 @@ export async function beforeEach (to, from, next) {
     } else {
       // 目前只有加载所有路由 - 利用权限码判断
       // 菜单权限判断
-      if (to.meta && to.meta.permitCode && store.getters.hasPagePermit(to.meta.permitCode)) {
+      if (!PERMIT_ROUTE_OPEN || (to.meta && to.meta.permitCode && store.getters.hasPagePermit(to.meta.permitCode))) {
         next()
       } else {
         next({ name: '403' })
@@ -71,6 +76,7 @@ export async function beforeEach (to, from, next) {
   }
 }
 
+// 全局后置路由守卫
 export function afterEach (to, from) {
   NProgress.done()
 }

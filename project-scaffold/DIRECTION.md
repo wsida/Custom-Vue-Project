@@ -110,8 +110,19 @@
 
 > 定义项目需要使用的或者需要多处使用的静态内容。
 
-- index 文件
+- index 文件 - 定义左侧菜单树，权限菜单控制，以及权限控制开关字段。
 - cookies 文件 -定义项目涉及的所有cookie的名称。
 - charts 文件 -定义图标配置项默认配置，方便风格统一。
-- router 文件 -定义路由创建所需要的默认配置项，以及全局路由拦截。
+- router 文件 -定义路由创建所需要的默认配置项，以及全局路由守卫，路由守涉及路由权限控制。
 - axios 文件 -定义axios创建所需要的默认配置项，以及axios全局拦截器，包括interceptor.request 和 interceptor.response
+
+## 权限控制
+
+> 权限控制包括 路由访问权限控制 和 左侧菜单权限控制
+> 主要涉及文件 `routes/asyncRoutes`、`config/index`、`config/router`
+
+- 路由访问权限控制
+  - 目前通过在 meta 字段中配置 permitCode 字段，在全局路由前置守卫中根据权限数组（接口返回）匹配 permitCode 字段来控制对应路由访问控制。如果路由配置未设置 permitCode 字段，则不校验权限。同时在 `config/index` 设置是否开启验证路由权限开关字段 `PERMIT_ROUTE_OPEN`，方便关闭路由权限控制。
+  - 同时，也设置另一种权限路由控制方式，在 `routes/asyncRouters` 文件中暴露 `getRoutes` 方法用来过滤有权限路由，通过传入 `权限数组` 参数，返回对应路由配置，在动态添加到router路由对象。（此方法需要进入页面就有路由权限，否则需要控制首次进入路由跳转前完成接口请求以及动态路由添加）
+- 左侧菜单权限控制
+  左侧菜单权限控制，通过 `config/index` 文件暴露的 `getPermitMenus` 方法，传入菜单权限码数组进行过滤，返回对应菜单数据，以供全局左侧菜单栏显示。同时，在 `config/index` 设置是否开启菜单权限控制开关字段 `PERMIT_MENU_OPEN` ，方便关闭菜单权限控制。

@@ -4,15 +4,21 @@ export default {
   menu: {
     workspace: '工作台',
     dashboard: '仪表盘',
-    form: '表单',
+    form: '表单页',
     basicForm: '基础表单',
-    complexForm: '复杂表单',
-    table: '表格',
-    basicTable: '简单表格',
-    complexTable: '复杂表格',
-    list: '列表',
-    basicList: '简单列表',
-    infiniteScrollList: '无限滚动列表'
+    stepForm: '分步表单',
+    complexForm: '高级表单',
+    searchTable: '搜索表格',
+    list: '列表页',
+    searchList: '基础列表',
+    infiniteScrollList: '无限滚动列表',
+    detail: '详情页',
+    basicDetail: '基础详情页',
+    complexDetail: '复杂详情页',
+    error: '异常页',
+    error404: '404',
+    error403: '403',
+    error500: '500'
   },
   // 通用
   common: {
@@ -34,6 +40,7 @@ export default {
     formatError: '格式错误',
     nextStep: '下一步',
     prevStep: '上一步',
+    submit: '提交',
     login: '登录',
     register: '注册',
     registerNow: '立即注册',
@@ -140,7 +147,15 @@ export default {
     artificial_class: '人工智能',
     machineLearning: '机器学习',
     deepLearning: '深度学习',
-    database_class: '数据库'
+    database_class: '数据库',
+    bank_zs: '招商银行',
+    bank_xy: '兴业银行',
+    bank_js: '建设银行',
+    bank_gs: '工商银行',
+    bank_qz: '泉州银行',
+    bank_xm: '厦门银行',
+    bank_ny: '农业银行',
+    bank_xys: '农村信用社'
   },
   // 报表
   chart: {
@@ -174,6 +189,7 @@ export default {
     datetime: '上传时间',
     actions: '操作'
   },
+  // 仪表盘
   dashboard: {
     unit_ge: '个',
     total_resources: '资源总数',
@@ -185,5 +201,26 @@ export default {
     resource_type_statistic: '类型统计',
     download_ranking: '下载排行',
     user_behavior: '用户行为'
+  },
+  // 表单
+  form: {
+    uploadTips: '点击上传文件!',
+    inputInfos: '填写收款人信息',
+    confirmInfos: '确认转账信息',
+    result: '操作结果',
+    payee: '收款人信息',
+    pay: '付款信息',
+    accountName: '户名',
+    account: '账号',
+    bank: '银行',
+    amount: '转账金额',
+    payAccount: '付款卡',
+    remark: '备注',
+    cardPassword: '付款卡密码',
+    again: '再转一笔',
+    exit: '查看记录',
+    titleSuccess: '操作成功',
+    subTitleSuccess: '预计两小时内到账，请提醒注意查收',
+    submitTips: '请核对收款人信息以及转账金额，确认转账后无法取消！'
   }
 }

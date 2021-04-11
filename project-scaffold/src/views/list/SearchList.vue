@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="wsd-basic-list">
     <a-page-header :breadcrumb="{ props: { routes } }"/>
-    <div class="wsd-basic-list">
+    <div class="wsd-list-container">
       <!-- 标签页 -->
       <a-tabs v-model="activeTab" @change="handleTabChange">
         <a-tab-pane key="upload" :tab="$t('list.upload')"></a-tab-pane>
@@ -80,8 +80,12 @@ export default {
     return {
       routes: [
         {
-          path: '/list-basic',
-          breadcrumbName: this.$t('menu.basicList')
+          path: '/list',
+          breadcrumbName: this.$t('menu.list')
+        },
+        {
+          path: '/list-search',
+          breadcrumbName: this.$t('menu.searchList')
         }
       ],
       activeTab: 'upload', // download

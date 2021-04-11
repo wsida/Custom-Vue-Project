@@ -102,8 +102,12 @@ export default {
     return {
       routes: [
         {
-          path: '/table-basic',
-          breadcrumbName: this.$t('menu.basicTable')
+          path: '/list',
+          breadcrumbName: this.$t('menu.list')
+        },
+        {
+          path: '/table-search',
+          breadcrumbName: this.$t('menu.searchTable')
         }
       ],
       loading: false,

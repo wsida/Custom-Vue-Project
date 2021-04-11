@@ -41,6 +41,13 @@ const ASYNC_ROUTES = [
       permitCode: 'page:form-basic'
     }
   }, {
+    path: '/form-step',
+    name: 'form-step',
+    component: () => import('@/views/form/StepForm'),
+    meta: {
+      permitCode: 'page:form-step'
+    }
+  }, {
     path: '/form-complex',
     name: 'form-complex',
     component: () => import('@/views/form/ComplexForm'),
@@ -48,25 +55,53 @@ const ASYNC_ROUTES = [
       permitCode: 'page:form-complex'
     }
   }, {
-    path: '/table',
-    name: 'table',
-    // redirect: 'table-basic', // 未配置component或者redirect 则自动设置第一个权限路由
+    path: '/detail',
+    name: 'detail',
+    // redirect: 'detail-basic', // 未配置component或者redirect 则自动设置第一个权限路由
     meta: {
-      permitCode: 'page:table'
+      permitCode: 'page:detail'
     }
   }, {
-    path: '/table-basic',
-    name: 'table-basic',
-    component: () => import('@/views/table/BasicTable'),
+    path: '/detail-basic',
+    name: 'detail-basic',
+    component: () => import('@/views/detail/BasicDetail'),
     meta: {
-      permitCode: 'page:table-basic'
+      permitCode: 'page:detail-basic'
     }
   }, {
-    path: '/table-complex',
-    name: 'table-complex',
-    component: () => import('@/views/table/ComplexTable'),
+    path: '/detail-complex',
+    name: 'detail-complex',
+    component: () => import('@/views/detail/ComplexDetail'),
     meta: {
-      permitCode: 'page:table-complex'
+      permitCode: 'page:detail-complex'
+    }
+  }, {
+    path: '/error',
+    name: 'error',
+    // redirect: 'form-basic', // 未配置component或者redirect 则自动设置第一个权限路由
+    meta: {
+      permitCode: 'page:error'
+    }
+  }, {
+    path: '/error-404',
+    name: 'error-404',
+    component: () => import('@/views/error/404'),
+    meta: {
+      permitCode: 'page:error-404'
+    }
+  }, {
+    path: '/error-403',
+    name: 'error-403',
+    component: () => import('@/views/error/403'),
+    meta: {
+      permitCode: 'page:error-403'
+    }
+  }, {
+    path: '/error-500',
+    name: 'error-500',
+    component: () => import('@/views/error/500'),
+    meta: {
+      permitCode: 'page:error-500'
     }
   }, {
     path: '/list',
@@ -76,11 +111,18 @@ const ASYNC_ROUTES = [
       permitCode: 'page:list'
     }
   }, {
-    path: '/list-basic',
-    name: 'list-basic',
-    component: () => import('@/views/list/BasicList'),
+    path: '/list-search',
+    name: 'list-search',
+    component: () => import('@/views/list/SearchList'),
     meta: {
-      permitCode: 'page:list-basic'
+      permitCode: 'page:list-search'
+    }
+  }, {
+    path: '/table-search',
+    name: 'table-search',
+    component: () => import('@/views/list/SearchTable'),
+    meta: {
+      permitCode: 'page:table-search'
     }
   }, {
     path: '/list-infinite-scroll',
@@ -104,6 +146,7 @@ export function getAsyncRoute (routes) {
   if (!routes || !routes.length) {
     rootRoute.redirect = '/404'
   } else {
+    // 根路由 重定向到 第一个有权限路由
     rootRoute.redirect = routes[0].path
     rootRoute.children = routes
   }

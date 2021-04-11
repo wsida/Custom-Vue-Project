@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="wsd-infinite-scroll-list">
     <a-page-header :breadcrumb="{ props: { routes } }"/>
-    <div class="wsd-infinite-scroll-list">
+    <div class="wsd-list-container">
       <!-- 标签页 -->
       <a-tabs v-model="activeTab" @change="handleTabChange">
         <a-tab-pane key="" :tab="$t('options.all') + `(${getCount('')})`"></a-tab-pane>
@@ -82,6 +82,10 @@ export default {
   data () {
     return {
       routes: [
+        {
+          path: '/list',
+          breadcrumbName: this.$t('menu.list')
+        },
         {
           path: '/list-infinite-scroll',
           breadcrumbName: this.$t('menu.infiniteScrollList')

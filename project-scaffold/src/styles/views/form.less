@@ -1,0 +1,47 @@
+@import '../common/variable.less';
+.wsd-form-container {
+  background: #fff;
+  padding: @--margin-basic-page;
+}
+
+.wsd-step-form {
+  .wsd-step-form__steps {
+    margin-bottom: @--margin-basic-row;
+  }
+  .wsd-step-title {
+    line-height: 20px;
+    &::before {
+      content: '';
+      position: relative;
+      top: -2px;
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background-color: @primary-color;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+  }
+
+  .wsd-remark-count {
+    position: absolute;
+    right: 8px;
+    bottom: 0px;
+    z-index: 1;
+    color: @--color-auxiliary-text;
+    line-height: 14px;
+    font-size: 12px;
+  }
+
+  .ant-btn + .ant-btn {
+    margin-left: @--margin-basic-col;
+  }
+
+  .wsd-step-info-form {
+    margin-bottom: 0px;
+  }
+
+  .is-large {
+    font-size: 30px;
+  }
+}

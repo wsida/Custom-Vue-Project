@@ -25,26 +25,38 @@ const PAGES_PERMIT = [
   'page:workspace',
   'page:form',
   'page:form-basic',
+  'page:form-step',
   'page:form-complex',
   'page:list',
-  'page:list-basic',
+  'page:list-search',
   'page:list-infinite-scroll',
-  'page:table',
-  'page:table-basic',
-  'page:table-complex'
+  'page:table-search',
+  'page:detail',
+  'page:detail-basic',
+  'page:detail-complex',
+  'page:error',
+  'page:error-404',
+  'page:error-403',
+  'page:error-500'
 ]
 const MENUS_PERMIT = [
   'menu:dashboard',
   'menu:workspace',
   'menu:form',
   'menu:form-basic',
+  'menu:form-step',
   'menu:form-complex',
   'menu:list',
-  'menu:list-basic',
+  'menu:list-search',
   'menu:list-infinite-scroll',
-  'menu:table',
-  'menu:table-basic',
-  'menu:table-complex'
+  'menu:table-search',
+  'menu:detail',
+  'menu:detail-basic',
+  'menu:detail-complex',
+  'menu:error',
+  'menu:error-404',
+  'menu:error-403',
+  'menu:error-500'
 ]
 
 const _getUserInfo = function (options) {

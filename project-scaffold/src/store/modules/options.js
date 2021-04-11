@@ -130,7 +130,59 @@ const state = {
   ],
 
   // 默认分类
-  resource_class: []
+  resource_class: [],
+
+  // 银行
+  bank_options: [
+    {
+      name: i18n.t('options.bank_zs'),
+      value: 'zs'
+    },
+    {
+      name: i18n.t('options.bank_js'),
+      value: 'js'
+    },
+    {
+      name: i18n.t('options.bank_gs'),
+      value: 'gs'
+    },
+    {
+      name: i18n.t('options.bank_qz'),
+      value: 'qz'
+    },
+    {
+      name: i18n.t('options.bank_xm'),
+      value: 'xm'
+    },
+    {
+      name: i18n.t('options.bank_xy'),
+      value: 'xy'
+    },
+    {
+      name: i18n.t('options.bank_ny'),
+      value: 'ny'
+    },
+    {
+      name: i18n.t('options.bank_xys'),
+      value: 'xys'
+    }
+  ],
+
+  // 我的卡包
+  pay_account_options: [
+    {
+      name: i18n.t('options.bank_zs') + '(9999)',
+      value: 'zs-9999'
+    },
+    {
+      name: i18n.t('options.bank_xy') + '(6666)',
+      value: 'xy-6666'
+    },
+    {
+      name: i18n.t('options.bank_js') + '(8888)',
+      value: 'js-8888'
+    }
+  ]
 }
 const getters = {}
 const mutations = {
