@@ -7,6 +7,8 @@ import $api from '@/api'
 import axios from '@/plugins/axios'
 import Antd from 'ant-design-vue'
 import PageScrollable from '@/components/pageScrollable'
+import Permit from '@/directives/permit'
+import havePermission from '@/utils/permission'
 import '@/icons' // svg-icon
 import '@/styles/index.less'
 
@@ -24,6 +26,10 @@ Vue.prototype.$api = $api
 Vue.prototype.$get = axios.get
 Vue.prototype.$post = axios.post
 Vue.prototype.$axios = axios
+
+Vue.prototype.$havePermission = havePermission
+
+Vue.directive('permit', Permit)
 
 new Vue({
   router,

@@ -180,6 +180,7 @@
               </a-form-item>
               <a-form-item :wrapper-col="{ span: 16, offset: 6 }">
                 <a-button
+                  v-permit="'func:step-form-submit'"
                   type="primary"
                   :loading="submitLoading"
                   @click="handleSubmit"

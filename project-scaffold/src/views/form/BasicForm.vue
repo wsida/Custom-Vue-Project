@@ -203,8 +203,13 @@
         </a-form-item>
 
         <a-form-item :wrapper-col="{ span: 12, offset: 6 }">
-          <a-button type="primary" html-type="submit" :loading="submitLoading">
-            Submit
+          <a-button
+            v-permit="'func:basic-form-submit'"
+            type="primary"
+            html-type="submit"
+            :loading="submitLoading"
+          >
+            {{ $t('common.submit') }}
           </a-button>
         </a-form-item>
       </a-form>

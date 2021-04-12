@@ -118,11 +118,13 @@
 
 ## 权限控制
 
-> 权限控制包括 路由访问权限控制 和 左侧菜单权限控制
-> 主要涉及文件 `routes/asyncRoutes`、`config/index`、`config/router`
+> 权限控制包括 路由访问权限控制 、 左侧菜单权限控制 、 功能码权限控制
+> 主要涉及文件 `routes/asyncRoutes`、`config/index`、`config/router`、`utils/permission`、`directives/permit`
 
 - 路由访问权限控制
   - 目前通过在 meta 字段中配置 permitCode 字段，在全局路由前置守卫中根据权限数组（接口返回）匹配 permitCode 字段来控制对应路由访问控制。如果路由配置未设置 permitCode 字段，则不校验权限。同时在 `config/index` 设置是否开启验证路由权限开关字段 `PERMIT_ROUTE_OPEN`，方便关闭路由权限控制。
   - 同时，也设置另一种权限路由控制方式，在 `routes/asyncRouters` 文件中暴露 `getRoutes` 方法用来过滤有权限路由，通过传入 `权限数组` 参数，返回对应路由配置，在动态添加到router路由对象。（此方法需要进入页面就有路由权限，否则需要控制首次进入路由跳转前完成接口请求以及动态路由添加）
 - 左侧菜单权限控制
   左侧菜单权限控制，通过 `config/index` 文件暴露的 `getPermitMenus` 方法，传入菜单权限码数组进行过滤，返回对应菜单数据，以供全局左侧菜单栏显示。同时，在 `config/index` 设置是否开启菜单权限控制开关字段 `PERMIT_MENU_OPEN` ，方便关闭菜单权限控制。
+- 功能码权限控制
+  功能码权限控制，主要用来控制按钮以及部分信息展示，根据接口返回功能码集合 `func` ，全局提供 `$havePermission` 方法，通过传入权限码（支持单个或者多个）进行权限校验，方法实现位于 `utils/permission` 文件。同时提供自定义指令 `v-permit` 控制内容展示。

@@ -3,6 +3,7 @@
 // 是否开启验证 permitCode
 export const PERMIT_ROUTE_OPEN = true
 export const PERMIT_MENU_OPEN = true
+export const PERMIT_FUNC_OPEN = false
 /**
  * 菜单栏配置
  * title 菜单标题

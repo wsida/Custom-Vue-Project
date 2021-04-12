@@ -11,9 +11,9 @@ import {
 
 const state = () => ({
   userInfo: {},
-  funcs: [],
-  pages: [],
-  menus: []
+  funcs: [], // 功能码
+  pages: [], // 路由权限码
+  menus: [] // 菜单权限码
 })
 
 const getters = {
