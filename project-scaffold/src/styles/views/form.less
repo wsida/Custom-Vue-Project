@@ -1,7 +1,16 @@
 @import '../common/variable.less';
-.wsd-form-container {
-  background: #fff;
-  padding: @--margin-basic-page;
+.wsd-basic-form,
+.wsd-step-form {
+  .wsd-form-container {
+    background: #fff;
+    padding: @--margin-basic-page;
+  }
+}
+
+.wsd-complex-form {
+  .ant-card + .ant-card {
+    margin-top: @--margin-basic-row;
+  }
 }
 
 .wsd-step-form {

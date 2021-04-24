@@ -182,6 +182,18 @@ const state = {
       name: i18n.t('options.bank_js') + '(8888)',
       value: 'js-8888'
     }
+  ],
+
+  //
+  repository_type: [
+    {
+      name: i18n.t('options.rpublic'),
+      value: '1'
+    },
+    {
+      name: i18n.t('options.rprivate'),
+      value: '2'
+    }
   ]
 }
 const getters = {}

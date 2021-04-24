@@ -155,7 +155,9 @@ export function getAsyncRoute (routes) {
 
 // 根据权限码返回路由配置
 export default function getRoutes (permits) {
+  // 未传入权限
   if (!permits || !permits.length) return getAsyncRoute(ASYNC_ROUTES)
+  // 传入权限，会自动设置redirect
   const permitLoop = (routes) => {
     if (routes.children && routes.children.length) {
       routes.children = permitLoop(routes.children)
